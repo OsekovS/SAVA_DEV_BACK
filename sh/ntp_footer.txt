@@ -1,0 +1,10 @@
+pool ntp.ubuntu.com
+
+restrict -4 default kod notrap nomodify nopeer noquery limited
+restrict -6 default kod notrap nomodify nopeer noquery limited
+
+restrict 127.0.0.1
+restrict ::1
+
+restrict source notrap nomodify noquery
+

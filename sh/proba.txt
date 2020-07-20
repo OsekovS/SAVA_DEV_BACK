@@ -1,0 +1,8 @@
+
+driftfile /var/lib/ntp/ntp.drift
+
+statistics loopstats peerstats clockstats
+filegen loopstats file loopstats type day enableee
+filegen peerstats file peerstats type day enable
+filegen clockstats file clockstats type day enable
+
