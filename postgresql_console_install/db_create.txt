@@ -1,0 +1,249 @@
+﻿create user 
+sava_user / arinteg123!
+
+create db
+sava_core / sava_user
+
+create table
+users / sava_core / sava_user
+id int,
+login varchar (32) NOT NULL,
+pass varchar (128) NOT NULL,
+user_hash varchar (128),
+rights varchar (16) NOT NULL,
+modules text
+
+
+insert db
+users / sava_core
+id, login, pass, user_hash, rights, modules
+'1', 'admin1', '356a192b7913b04c54574d18c28d46e6395428ab', '1', 'yes', '{ "acs_castle_ep2":{ "admin":"yes", "loaded":false, "settings":{ "sidebar":{"active":true,"text":"SAVA СКУД «Castle»","to":"/setting module acs"}, "Tabels":[ { "title":"Конечные точки", "tableName":"endpoints", "formFields":[ { "text":"Объект", "field":"obj", "name":"obj", "component":"select", "options":"objects", "numb":1 }, { "text":"Название", "field":"name", "name":"name", "component":"input", "type":"text" }, { "text":"Ip адрес", "field":"ip", "name":"ip", "component":"input", "type":"text" }, { "text":"Порт", "field":"port", "name":"port", "component":"input", "type":"text" }, { "text":"Логин", "field":"login", "name":"login", "component":"input", "type":"text" }, { "text":"Пароль", "field":"pass", "name":"pass", "component":"input", "type":"password" }, { "text":"Использовать внутреннее имя", "field":"usename", "name":"usename", "component":"input", "type":"checkbox" } ] }, { "title":"Объекты инфраструктуры", "tableName":"objects", "formFields":[ { "text":"Название объекта", "field":"name", "name":"name", "component":"input", "type":"text" } ] } ] }, "indexes":{ "acs_castle_ep2_event":{ "sidebar":{ "active":true, "text":"События устройств", "to":"/visualization acs devicesLogs" }, "style":"devices-events", "title":"События устройств", "events":{"Высокий":"High", "Средний":"Middle", "Низкий":"Low"}, "fields":{ "significance":{"hidden":false,"translate":"Приоритет"}, "object":{"hidden":false,"translate":"Объекты"}, "device":{"hidden":false,"translate":"Конечные точки"}, "ip_device":{"hidden":true,"translate":"ip конечных точек"}, "event":{"hidden":false,"translate":"События"}, "route":{"hidden":false,"translate":"Направление"}, "person":{"hidden":false,"translate":"Владелец"}, "pass_number":{"hidden":true,"translate":"Номер владельца"} } }, "acs_castle_ep2_userlog":{ "sidebar":{ "active":false, "text":"События пользователей", "to":"/visualization acs usersLogs" }, "style":"user-events", "title":"События пользователей", "events":{"Высокий":"High", "Средний":"Middle", "Низкий":"Low"}, "fields":{ "significance":{"hidden":false,"translate":"Приоритет"}, "object":{"hidden":false,"translate":"Объекты"}, "personal":{"hidden":false,"translate":"Персонал"}, "event":{"hidden":false,"translate":"События"} } } }, "title":"SAVA СКУД «Castle»" }, "iss":{ "admin":"yes", "loaded":false, "settings":{ "sidebar":{"active":false,"text":"SAVA СЗИ «SNS»","to":"/setting module iss"}, "Tabels":[ { "title":"Конечные точки", "tableName":"endpoints", "formFields":[ { "text":"Объект", "field":"obj", "name":"obj", "component":"select", "options":"objects", "numb":1 }, { "text":"Название", "field":"name", "name":"name", "component":"input", "type":"text" }, { "text":"Ip адрес", "field":"ip", "name":"ip", "component":"input", "type":"text" }, { "text":"Порт", "field":"port", "name":"port", "component":"input", "type":"text" }, { "text":"Логин", "field":"login", "name":"login", "component":"input", "type":"text" }, { "text":"Домен", "field":"domen", "name":"domen", "component":"input", "type":"text" }, { "text":"Пароль", "field":"pass", "name":"pass", "component":"input", "type":"password" }, { "text":"Использовать внутреннее имя", "field":"usename", "name":"usename", "component":"input", "type":"checkbox" } ] }, { "title":"Объекты инфраструктуры", "tableName":"objects", "formFields":[ { "text":"Название объекта", "field":"name", "name":"name", "component":"input", "type":"text" } ] } ] }, "indexes":{ "sns_event":{ "sidebar":{"active":true,"text":"Журналы станций","to":"/visualization iss"}, "style":"sns_event", "title":"Журналы станций", "events":{"Высокий":"High", "Средний":"Middle", "Низкий":"Low"}, "fields":{ "event":{"hidden":false,"translate":"Событие"}, "event_type":{"hidden":false,"translate":"Тип события"}, "source_log":{"hidden":true,"translate":"Источник"}, "point":{"hidden":false,"translate":"Конечная точка"}, "significance":{"hidden":false,"translate":"Приоритет"}, "detailed_information":{"hidden":true,"translate":"Детальная информация"} } } }, "title":"SAVA СЗИ «SNS»" } }'
+
+create table
+allDashboards / sava_core / sava_user
+json text
+
+insert db
+allDashboards / sava_core
+json
+'{ "acs_castle_ep2":{ "admin":"yes", "loaded":false, "settings":{ "sidebar":{"active":true,"text":"SAVA СКУД «Castle»","to":"/setting module acs"}, "Tabels":[ { "title":"Конечные точки", "tableName":"endpoints", "formFields":[ { "text":"Объект", "field":"obj", "name":"obj", "component":"select", "options":"objects", "numb":1 }, { "text":"Название", "field":"name", "name":"name", "component":"input", "type":"text" }, { "text":"Ip адрес", "field":"ip", "name":"ip", "component":"input", "type":"text" }, { "text":"Порт", "field":"port", "name":"port", "component":"input", "type":"text" }, { "text":"Логин", "field":"login", "name":"login", "component":"input", "type":"text" }, { "text":"Пароль", "field":"pass", "name":"pass", "component":"input", "type":"password" }, { "text":"Использовать внутреннее имя", "field":"usename", "name":"usename", "component":"input", "type":"checkbox" } ] }, { "title":"Объекты инфраструктуры", "tableName":"objects", "formFields":[ { "text":"Название объекта", "field":"name", "name":"name", "component":"input", "type":"text" } ] } ] }, "indexes":{ "acs_castle_ep2_event":{ "sidebar":{ "active":true, "text":"События устройств", "to":"/visualization acs devicesLogs" }, "style":"devices-events", "title":"События устройств", "events":{"Высокий":"High", "Средний":"Middle", "Низкий":"Low"}, "fields":{ "significance":{"hidden":false,"translate":"Приоритет"}, "object":{"hidden":false,"translate":"Объекты"}, "device":{"hidden":false,"translate":"Конечные точки"}, "ip_device":{"hidden":true,"translate":"ip конечных точек"}, "event":{"hidden":false,"translate":"События"}, "route":{"hidden":false,"translate":"Направление"}, "person":{"hidden":false,"translate":"Владелец"}, "pass_number":{"hidden":true,"translate":"Номер владельца"} } }, "acs_castle_ep2_userlog":{ "sidebar":{ "active":false, "text":"События пользователей", "to":"/visualization acs usersLogs" }, "style":"user-events", "title":"События пользователей", "events":{"Высокий":"High", "Средний":"Middle", "Низкий":"Low"}, "fields":{ "significance":{"hidden":false,"translate":"Приоритет"}, "object":{"hidden":false,"translate":"Объекты"}, "personal":{"hidden":false,"translate":"Персонал"}, "event":{"hidden":false,"translate":"События"} } } }, "title":"SAVA СКУД «Castle»" }, "iss":{ "admin":"yes", "loaded":false, "settings":{ "sidebar":{"active":false,"text":"SAVA СЗИ «SNS»","to":"/setting module iss"}, "Tabels":[ { "title":"Конечные точки", "tableName":"endpoints", "formFields":[ { "text":"Объект", "field":"obj", "name":"obj", "component":"select", "options":"objects", "numb":1 }, { "text":"Название", "field":"name", "name":"name", "component":"input", "type":"text" }, { "text":"Ip адрес", "field":"ip", "name":"ip", "component":"input", "type":"text" }, { "text":"Порт", "field":"port", "name":"port", "component":"input", "type":"text" }, { "text":"Логин", "field":"login", "name":"login", "component":"input", "type":"text" }, { "text":"Домен", "field":"domen", "name":"domen", "component":"input", "type":"text" }, { "text":"Пароль", "field":"pass", "name":"pass", "component":"input", "type":"password" }, { "text":"Использовать внутреннее имя", "field":"usename", "name":"usename", "component":"input", "type":"checkbox" } ] }, { "title":"Объекты инфраструктуры", "tableName":"objects", "formFields":[ { "text":"Название объекта", "field":"name", "name":"name", "component":"input", "type":"text" } ] } ] }, "indexes":{ "sns_event":{ "sidebar":{"active":true,"text":"Журналы станций","to":"/visualization iss"}, "style":"sns_event", "title":"Журналы станций", "events":{"Высокий":"High", "Средний":"Middle", "Низкий":"Low"}, "fields":{ "event":{"hidden":false,"translate":"Событие"}, "event_type":{"hidden":false,"translate":"Тип события"}, "source_log":{"hidden":true,"translate":"Источник"}, "point":{"hidden":false,"translate":"Конечная точка"}, "significance":{"hidden":false,"translate":"Приоритет"}, "detailed_information":{"hidden":true,"translate":"Детальная информация"} } } }, "title":"SAVA СЗИ «SNS»" } }'
+
+
+create db
+iss / sava_user
+
+create table
+filters / iss / sava_user
+indexName varchar (64) NOT NULL,
+json text
+
+insert db
+filters / iss
+indexName, json
+'sns_event', ''
+
+create db
+acs_castle_ep2 / sava_user
+
+create table
+filters / acs_castle_ep2 / sava_user
+indexName varchar (64) NOT NULL,
+json text
+
+insert db
+filters / acs_castle_ep2
+indexName, json
+'acs_castle_ep2_event', ''
+
+insert db
+filters / acs_castle_ep2
+indexName, json
+'acs_castle_ep2_userlog', ''
+
+create table
+LastIndexLook / iss / sava_user
+indexName varchar (32) NOT NULL,
+login varchar (32) NOT NULL,
+lastTime text,
+json text
+
+insert db
+LastIndexLook / iss
+indexName, login,lastTime, json
+'sns_event', 'core','{"fromNum":1,"fromLetter":"months"}','{ "Высокий":{"style":"High","lastTime":"2019/01/29 00:00:00"}, "Средний":{"style":"Middle","lastTime":"2019/01/29 00:00:00"}, "Низкий":{"style":"Low","lastTime":"2019/01/29 00:00:00"} }'
+
+insert db
+LastIndexLook / iss
+indexName, login,lastTime, json
+'sns_event', 'admin1','{"fromNum":1,"fromLetter":"months"}','{ "Высокий":{"style":"High","lastTime":"2019/01/29 00:00:00"}, "Средний":{"style":"Middle","lastTime":"2019/01/29 00:00:00"}, "Низкий":{"style":"Low","lastTime":"2019/01/29 00:00:00"} }'
+
+
+
+create table
+LastIndexLook / acs_castle_ep2 / sava_user
+indexName varchar (32) NOT NULL,
+login varchar (32) NOT NULL,
+lastTime text,
+json text
+
+insert db
+LastIndexLook / acs_castle_ep2
+indexName, login,lastTime, json
+'acs_castle_ep2_event', 'admin1','{"fromNum":1,"fromLetter":"months"}','{ "Высокий":{"style":"High","lastTime":"2019/01/29 00:00:00"}, "Средний":{"style":"Middle","lastTime":"2019/01/29 00:00:00"}, "Низкий":{"style":"Low","lastTime":"2019/01/29 00:00:00"} }'
+
+insert db
+LastIndexLook / acs_castle_ep2
+indexName, login,lastTime, json
+'acs_castle_ep2_userlog', 'admin1','{"fromNum":1,"fromLetter":"months"}','{ "Высокий":{"style":"High","lastTime":"2019/01/29 00:00:00"}, "Средний":{"style":"Middle","lastTime":"2019/01/29 00:00:00"}, "Низкий":{"style":"Low","lastTime":"2019/01/29 00:00:00"} }'
+
+insert db
+LastIndexLook / acs_castle_ep2
+indexName, login,lastTime, json
+'acs_castle_ep2_event', 'core','{"fromNum":1,"fromLetter":"months"}','{ "Высокий":{"style":"High","lastTime":"2019/01/29 00:00:00"}, "Средний":{"style":"Middle","lastTime":"2019/01/29 00:00:00"}, "Низкий":{"style":"Low","lastTime":"2019/01/29 00:00:00"} }'
+
+insert db
+LastIndexLook / acs_castle_ep2
+indexName, login,lastTime, json
+'acs_castle_ep2_userlog', 'core','{"fromNum":1,"fromLetter":"months"}','{ "Высокий":{"style":"High","lastTime":"2019/01/29 00:00:00"}, "Средний":{"style":"Middle","lastTime":"2019/01/29 00:00:00"}, "Низкий":{"style":"Low","lastTime":"2019/01/29 00:00:00"} }'
+
+
+create table
+emailNotificationEvents / sava_core / sava_user
+id int,
+name varchar (40) NOT NULL,
+moduleName varchar (40) NOT NULL,
+indexName varchar (40) NOT NULL,
+login varchar (40) NOT NULL,
+filter text
+
+create table
+emailAddressees / sava_core / sava_user
+id int,
+name varchar (40) NOT NULL,
+login varchar (40) NOT NULL,
+theme varchar (40) NOT NULL,
+events text
+
+insert db
+emailAddressees / sava_core
+id, login, name , events, theme
+1, 'admin1', '666@mail.ru', '[]', 'угроза'
+
+
+insert db
+emailNotificationEvents / sava_core
+id, name , moduleName, indexName, filter, login
+0, '1 этаж', 'iss', 'iss', '{}', 'admin1'
+
+
+create table
+dashboards / iss / sava_user
+id int NOT NULL,
+name varchar (64),
+type varchar (32) NOT NULL,
+master varchar (32) NOT NULL,
+json text,
+indexName varchar (32) NOT NULL
+
+
+insert db
+dashboards / iss
+id, name, type, master ,indexName,json
+1, 'Круговая диаграмма', 'Circle_Diagram', 'admin1', 'sns_event', '{ "field":"significance","style":{"width":435,"minWidth":435}, "indexName":"sns_event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+
+insert db
+dashboards / iss
+id, name, type, master ,indexName,json
+1, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'sns_event', '{ "field":"significance", "style":{"width":435,"minWidth":435},"indexName":"sns_event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+
+
+insert db
+dashboards / iss
+id, name, type, master, indexName, json
+0, 'Журналы станций', 'Table', 'admin1','sns_event', '{ "indexElements":[{"text":"Дата","type":"date","field":"time","colWidth":128}, {"text":"","type":"text","field":"significance","colWidth":25}, {"text":"Тип события","type":"text","field":"event_type","colWidth":92}, {"text":"Событие","type":"text","field":"event","colWidth":678}, {"text":"Конечная точка","type":"text","field":"point","colWidth":114}, {"text":"Источник: ","field":"source_log","colWidth":114}, {"text":"Событие: ","field":"event","colWidth":114}, {"text":"Детальная информация: ","field":"detailed_information","colWidth":114}], "headerElements":[    {"text":"Дата","type":"date","field":"time","colWidth":128},    {"text":"","type":"text","field":"significance","colWidth":25},    {"text":"Тип события","type":"text","field":"event_type","colWidth":92},    {"text":"Событие","type":"text","field":"event","colWidth":678},    {"text":"Конечная точка","type":"text","field":"point","colWidth":114}  ],  "footerElements":[    {"text":"Источник: ","field":"source_log","colWidth":114},    {"text":"Событие: ","field":"event","colWidth":114},    {"text":"Детальная информация: ","field":"detailed_information","colWidth":114}  ],  "style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25},  "indexName":"sns_event",  "logs":[],  "timeFilter":{"from":"2020/01/26 00:00:00","to":"2020/01/26 23:59:00"},  "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"},  "paramFilter":{},  "pagination":{    "total":"",    "currentPage":1,    "fromPage":1,    "showedPages":5,    "lastPage":"",    "showedLogs":100,    "showedLogsList":[50,100,250,500]  },  "sortParam":{"type":"date","field":"time","direction":"asc"},  "curLog":null }'
+
+
+insert db
+dashboards / iss
+id, name, type, master, indexName, json
+0, 'Журналы станций', 'Table', 'core','sns_event', '{"indexElements":[{"text":"Дата","type":"date","field":"time","colWidth":128}, {"text":"","type":"text","field":"significance","colWidth":25}, {"text":"Тип события","type":"text","field":"event_type","colWidth":92}, {"text":"Событие","type":"text","field":"event","colWidth":678}, {"text":"Конечная точка","type":"text","field":"point","colWidth":114}, {"text":"Источник: ","field":"source_log","colWidth":114}, {"text":"Событие: ","field":"event","colWidth":114}, {"text":"Детальная информация: ","field":"detailed_information","colWidth":114}],  "headerElements":[    {"text":"Дата","type":"date","field":"time","colWidth":128},    {"text":"","type":"text","field":"significance","colWidth":25},    {"text":"Тип события","type":"text","field":"event_type","colWidth":92},    {"text":"Событие","type":"text","field":"event","colWidth":678},    {"text":"Конечная точка","type":"text","field":"point","colWidth":114}  ],  "footerElements":[    {"text":"Источник: ","field":"source_log","colWidth":114},    {"text":"Событие: ","field":"event","colWidth":114},    {"text":"Детальная информация: ","field":"detailed_information","colWidth":114}  ],  "style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25},  "indexName":"sns_event",  "logs":[],  "timeFilter":{"from":"2020/01/26 00:00:00","to":"2020/01/26 23:59:00"},  "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"},  "paramFilter":{},  "pagination":{    "total":"",    "currentPage":1,    "fromPage":1,    "showedPages":5,    "lastPage":"",    "showedLogs":100,    "showedLogsList":[50,100,250,500]  },  "sortParam":{"type":"date","field":"time","direction":"asc"},  "curLog":null }'
+
+
+
+create table
+dashboards / acs_castle_ep2 / sava_user
+id int NOT NULL,
+name varchar (64),
+type varchar (32) NOT NULL,
+master varchar (32) NOT NULL,
+json text,
+indexName varchar (32) NOT NULL
+
+
+
+insert db
+dashboards / acs_castle_ep2
+id, name, type, master , indexName, json
+0, 'События устройств', 'Table', 'admin1', 'acs_castle_ep2_event', '{"collapsed":false,  "headerElements":[    {"text":"Дата","type":"date","field":"time"},    {"text":"","type":"text","field":"significance"},    {"text":"Объект","type":"text","field":"object"},    {"text":"Конечная точка","type":"text","field":"device"},    {"text":"Событие","type":"text","field":"event"},    {"text":"Направление","type":"text","field":"route"},    {"text":"Владелец","type":"text","field":"person"}  ],  "footerElements":[    {"text":"Номер карты: ","field":"pass_number"},    {"text":"ip конечной точки: ","field":"ip_device"}  ],  "style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25},  "indexName":"acs_castle_ep2_event",  "logs":[], "timeFilter":{"from": "2020/01/24 00:00:00", "to": "2020/01/26 23:59:00"},  "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"},  "paramFilter":{},  "pagination":{    "total":"",    "currentPage":1,    "fromPage":1,    "showedPages":5,    "lastPage":"",    "showedLogs":100,    "showedLogsList":[50,100,250,500]  },  "sortParam":{"type":"date","field":"time","direction":"asc"},  "curLog":null }'
+
+insert db
+dashboards / acs_castle_ep2
+id, name, type, master, indexName, json
+1, 'События пользователей', 'Table', 'admin1','acs_castle_ep2_userlog', '{"collapsed":false,  "headerElements":[    {"text":"Дата","type":"date","field":"time"},    {"text":"","type":"text","field":"significance"},    {"text":"Объект","type":"text","field":"object"},    {"text":"Событие","type":"text","field":"event"},    {"text":"Персонал","type":"text","field":"personal"}  ],  "footerElements":[{"text":"Событие: ", "type":"text", "field":"event"} ], "style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25},   "indexName":"acs_castle_ep2_userlog", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"},  "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"},  "paramFilter":{},  "pagination":{    "total":"",    "currentPage":1,    "fromPage":1,    "showedPages":5,    "lastPage":"",    "showedLogs":100,    "showedLogsList":[50,100,250,500]  },  "sortParam":{"type":"date","field":"time","direction":"asc"},  "curLog":null }'
+
+
+insert db
+dashboards / acs_castle_ep2
+id, name, type, master , indexName, json
+0, 'События устройств', 'Table', 'core', 'acs_castle_ep2_event', '{"collapsed":false,  "headerElements":[    {"text":"Дата","type":"date","field":"time"},    {"text":"","type":"text","field":"significance"},    {"text":"Объект","type":"text","field":"object"},    {"text":"Конечная точка","type":"text","field":"device"},    {"text":"Событие","type":"text","field":"event"},    {"text":"Направление","type":"text","field":"route"},    {"text":"Владелец","type":"text","field":"person"}  ],  "footerElements":[    {"text":"Номер карты: ","field":"pass_number"},    {"text":"ip конечной точки: ","field":"ip_device"}  ],  "style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25},  "indexName":"acs_castle_ep2_event",  "logs":[], "timeFilter":{"from": "2020/01/24 00:00:00", "to": "2020/01/26 23:59:00"},  "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"},  "paramFilter":{},  "pagination":{    "total":"",    "currentPage":1,    "fromPage":1,    "showedPages":5,    "lastPage":"",    "showedLogs":100,    "showedLogsList":[50,100,250,500]  },  "sortParam":{"type":"date","field":"time","direction":"asc"},  "curLog":null }'
+
+insert db
+dashboards / acs_castle_ep2
+id, name, type, master, indexName, json
+1, 'События пользователей', 'Table', 'core','acs_castle_ep2_userlog', '{"collapsed":false,  "headerElements":[    {"text":"Дата","type":"date","field":"time"},    {"text":"","type":"text","field":"significance"},    {"text":"Объект","type":"text","field":"object"},    {"text":"Событие","type":"text","field":"event"},    {"text":"Персонал","type":"text","field":"personal"}  ],  "footerElements":[{"text":"Событие: ", "type":"text", "field":"event"} ], "style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25},   "indexName":"acs_castle_ep2_userlog", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"},  "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"},  "paramFilter":{},  "pagination":{    "total":"",    "currentPage":1,    "fromPage":1,    "showedPages":5,    "lastPage":"",    "showedLogs":100,    "showedLogsList":[50,100,250,500]  },  "sortParam":{"type":"date","field":"time","direction":"asc"},  "curLog":null }'
+
+
+
+insert db
+dashboards / acs_castle_ep2
+id, name, type, master ,indexName,json
+2, 'Круговая диаграмма', 'Circle_Diagram', 'admin1', 'acs_castle_ep2_event', '{ "field":"significance","style":{"width":435,"minWidth":435}, "indexName":"acs_castle_ep2_event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+
+insert db
+dashboards / acs_castle_ep2
+id, name, type, master ,indexName,json
+3, 'Круговая диаграмма', 'Circle_Diagram', 'admin1', 'acs_castle_ep2_userlog', '{ "field":"significance", "style":{"width":435,"minWidth":435},"indexName":"acs_castle_ep2_userlog", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+insert db
+dashboards / acs_castle_ep2
+id, name, type, master ,indexName,json
+2, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'acs_castle_ep2_event', '{ "field":"significance","style":{"width":435,"minWidth":435}, "indexName":"acs_castle_ep2_event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+
+insert db
+dashboards / acs_castle_ep2
+id, name, type, master ,indexName,json
+3, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'acs_castle_ep2_userlog', '{ "field":"significance", "style":{"width":435,"minWidth":435},"indexName":"acs_castle_ep2_userlog", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+
+
+
+
+
+create table
+smtpSettings / sava_core / sava_user
+name varchar (40) NOT NULL,
+port varchar (40) NOT NULL,
+adress varchar (40) NOT NULL,
+useAuth boolean,
+login varchar (40) NOT NULL,
+username varchar (40) NOT NULL,
+pass varchar (40) NOT NULL
+
+insert db
+smtpSettings / sava_core
+name ,port ,adress ,useAuth ,login, username ,pass
+'SMTPserver.damain.com', '25','wsee@domain.com',  't', 'wsee@domain.com', 'admin1', '123' 
