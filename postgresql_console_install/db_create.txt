@@ -124,16 +124,6 @@ login varchar (40) NOT NULL,
 theme varchar (40) NOT NULL,
 events text
 
-insert db
-emailAddressees / sava_core
-id, login, name , events, theme
-1, 'admin1', '666@mail.ru', '[]', 'угроза'
-
-
-insert db
-emailNotificationEvents / sava_core
-id, name , moduleName, indexName, filter, login
-0, '1 этаж', 'iss', 'iss', '{}', 'admin1'
 
 
 create table
