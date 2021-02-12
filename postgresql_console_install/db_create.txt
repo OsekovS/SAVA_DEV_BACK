@@ -187,12 +187,12 @@ id, name, type, master, indexName, json
 insert db
 dashboards / acs_castle_ep2
 id, name, type, master , indexName, json
-0, 'События устройств', 'Table', 'core', 'acs_castle_ep2_event', '{"collapsed":false,  "headerElements":[    {"text":"Дата","type":"date","field":"time"},    {"text":"","type":"text","field":"significance"},    {"text":"Объект","type":"text","field":"object"},    {"text":"Конечная точка","type":"text","field":"device"},    {"text":"Событие","type":"text","field":"event"},    {"text":"Направление","type":"text","field":"route"},    {"text":"Владелец","type":"text","field":"person"}  ],  "footerElements":[    {"text":"Номер карты: ","field":"pass_number"},    {"text":"ip конечной точки: ","field":"ip_device"}  ],  "style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25},  "indexName":"acs_castle_ep2_event",  "logs":[], "timeFilter":{"from": "2020/01/24 00:00:00", "to": "2020/01/26 23:59:00"},  "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"},  "paramFilter":{},  "pagination":{    "total":"",    "currentPage":1,    "fromPage":1,    "showedPages":5,    "lastPage":"",    "showedLogs":100,    "showedLogsList":[50,100,250,500]  },  "sortParam":{"type":"date","field":"time","direction":"asc"},  "curLog":null }'
+0, 'События устройств', 'Table', 'core', 'acs_castle_ep2_event', '{"collapsed":false,  "headerElements":[    {"text":"Дата","type":"date","field":"time"},    {"text":"","type":"text","field":"significance"},    {"text":"Объект","type":"text","field":"object"},    {"text":"Конечная точка","type":"text","field":"device"},    {"text":"Событие","type":"text","field":"event"},    {"text":"Направление","type":"text","field":"route"},    {"text":"Владелец","type":"text","field":"person"}  ],  "footerElements":[    {"text":"Номер карты: ","field":"pass_number"},    {"text":"ip конечной точки: ","field":"ip_device"}  ],  "style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25},  "indexName":"acs_castle_ep2_event",  "logs":[], "timeFilter":{"from": "2019/01/24 00:00:00", "to": "2020/01/26 23:59:00"},  "uploads":{"uploads":false,"timeKind":1,"timeNum":11000,"to":"now/d"},  "paramFilter":{},  "pagination":{    "total":"",    "currentPage":1,    "fromPage":1,    "showedPages":5,    "lastPage":"",    "showedLogs":100,    "showedLogsList":[50,100,250,500]  },  "sortParam":{"type":"date","field":"time","direction":"asc"},  "curLog":null }'
 
 insert db
 dashboards / acs_castle_ep2
 id, name, type, master, indexName, json
-1, 'События пользователей', 'Table', 'core','acs_castle_ep2_userlog', '{"collapsed":false,  "headerElements":[    {"text":"Дата","type":"date","field":"time"},    {"text":"","type":"text","field":"significance"},    {"text":"Объект","type":"text","field":"object"},    {"text":"Событие","type":"text","field":"event"},    {"text":"Персонал","type":"text","field":"personal"}  ],  "footerElements":[{"text":"Событие: ", "type":"text", "field":"event"} ], "style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25},   "indexName":"acs_castle_ep2_userlog", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"},  "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"},  "paramFilter":{},  "pagination":{    "total":"",    "currentPage":1,    "fromPage":1,    "showedPages":5,    "lastPage":"",    "showedLogs":100,    "showedLogsList":[50,100,250,500]  },  "sortParam":{"type":"date","field":"time","direction":"asc"},  "curLog":null }'
+1, 'События пользователей', 'Table', 'core','acs_castle_ep2_userlog', '{"collapsed":false,  "headerElements":[    {"text":"Дата","type":"date","field":"time"},    {"text":"","type":"text","field":"significance"},    {"text":"Объект","type":"text","field":"object"},    {"text":"Событие","type":"text","field":"event"},    {"text":"Персонал","type":"text","field":"personal"}  ],  "footerElements":[{"text":"Событие: ", "type":"text", "field":"event"} ], "style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25},   "indexName":"acs_castle_ep2_userlog", "logs":[], "timeFilter":{"from": "2019/01/26 00:00:00", "to": "2020/01/26 23:59:00"},  "uploads":{"uploads":false,"timeKind":1,"timeNum":11000,"to":"now/d"},  "paramFilter":{},  "pagination":{    "total":"",    "currentPage":1,    "fromPage":1,    "showedPages":5,    "lastPage":"",    "showedLogs":100,    "showedLogsList":[50,100,250,500]  },  "sortParam":{"type":"date","field":"time","direction":"asc"},  "curLog":null }'
 
 
 
@@ -207,16 +207,18 @@ dashboards / acs_castle_ep2
 id, name, type, master ,indexName,json
 3, 'Круговая диаграмма', 'Circle_Diagram', 'admin1', 'acs_castle_ep2_userlog', '{ "field":"significance", "style":{"width":435,"minWidth":435},"indexName":"acs_castle_ep2_userlog", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
 
+
 insert db
 dashboards / acs_castle_ep2
 id, name, type, master ,indexName,json
-2, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'acs_castle_ep2_event', '{ "field":"significance","style":{"width":435,"minWidth":435}, "indexName":"acs_castle_ep2_event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+2, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'acs_castle_ep2_event', '{ "field":"significance","style":{"width":435,"minWidth":435}, "indexName":"acs_castle_ep2_event", "logs":[], "timeFilter":{"from": "2019/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":false,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
 
 
 insert db
 dashboards / acs_castle_ep2
 id, name, type, master ,indexName,json
-3, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'acs_castle_ep2_userlog', '{ "field":"significance", "style":{"width":435,"minWidth":435},"indexName":"acs_castle_ep2_userlog", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+3, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'acs_castle_ep2_userlog', '{ "field":"significance", "style":{"width":435,"minWidth":435},"indexName":"acs_castle_ep2_userlog", "logs":[], "timeFilter":{"from": "2019/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":false,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
 
 
 
@@ -237,3 +239,32 @@ insert db
 smtpSettings / sava_core
 name ,port ,adress ,useAuth ,login, username ,pass
 'SMTPserver.damain.com', '25','wsee@domain.com',  't', 'wsee@domain.com', 'admin1', '123' 
+
+
+create table
+dashboards / sava_core / sava_user
+id int NOT NULL,
+name varchar (64),
+type varchar (32) NOT NULL,
+master varchar (32) NOT NULL,
+json text,
+indexName varchar (32) NOT NULL
+
+insert db
+dashboards / sava_core
+id, name, type, master ,indexName,json
+0, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'sns_event', '{ "field":"significance","style":{"width":435,"minWidth":435}, "indexName":"sns_event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+insert db
+dashboards / sava_core
+id, name, type, master ,indexName,json
+0, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'acs_castle_ep2_event', '{ "field":"significance","style":{"width":435,"minWidth":435}, "indexName":"acs_castle_ep2_event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+
+insert db
+dashboards / sava_core
+id, name, type, master ,indexName,json
+0, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'acs_castle_ep2_userlog', '{ "field":"significance", "style":{"width":435,"minWidth":435},"indexName":"acs_castle_ep2_userlog", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+
+
