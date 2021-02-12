@@ -1,0 +1,4 @@
+
+
+drop table
+dashboards / sava_core / sava_user

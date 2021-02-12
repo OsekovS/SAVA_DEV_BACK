@@ -1,0 +1,424 @@
+﻿create user 
+sava_user / arinteg123!
+
+create db
+sava_core / sava_user
+
+create table
+users / sava_core / sava_user
+id int,
+login varchar (32) NOT NULL,
+pass varchar (128) NOT NULL,
+user_hash varchar (128),
+rights varchar (16) NOT NULL,
+modules text
+
+
+insert db
+users / sava_core
+id, login, pass, user_hash, rights, modules
+'1', 'admin1', '356a192b7913b04c54574d18c28d46e6395428ab', '1', 'yes', '{ "eset": { "admin": "yes", "loaded":false, "settings": { "sidebar": { "active":true, "text":"SAVA «ESET»", "to":"/setting module eset" }, //### "Tabels":[ { "title":"Конечные точки", "tableName":"endpoints", "formFields":[ { "text":"Объект", "field":"obj", "name":"obj", "component":"select", "options":"objects", "numb":1 }, { "text":"Название", "field":"name", "name":"name", "component":"input", "type":"text" }, { "text":"Ip адрес", "field":"ip", "name":"ip", "component":"input", "type":"text" }, { "text":"Порт", "field":"port", "name":"port", "component":"input", "type":"text" }, { "text":"Логин", "field":"login", "name":"login", "component":"input", "type":"text" }, { "text":"Пароль", "field":"pass", "name":"pass", "component":"input", "type":"password" }, { "text":"Использовать внутреннее имя", "field":"usename", "name":"usename", "component":"input", "type":"checkbox" } ] }, { "title":"Объекты инфраструктуры", "tableName":"objects", "formFields":[ { "text":"Название объекта", "field":"name", "name":"name", "component":"input", "type":"text" } ] } ] //### }, "indexes": { "Audit_Event":{ "sidebar":{ "active":true, "text":"SAVA ESET Журнал внутреннего аудита", "to":"/visualization eset auditEvent" }, "style":"devices-events", "title":"SAVA ESET Журнал внутреннего аудита", "events":{ "Неустранимая ошибка":"High", "Критическая ошибка":"High", "Ошибка":"High", "Предупреждение":"Middle", "Примечание":"Low", "Информация":"Low" }, "fields":{ "event_type":{ "hidden":false, "translate":"тип события" }, "ipv4":{ "hidden":false, "translate":"IPv4-адрес" }, "ipv6":{ "hidden":false, "translate":"IPv6-адрес" }, "source_uuid":{ "hidden":true, "translate":"идентификатор UUID" }, "occured":{ "hidden":false, "translate":"время события" }, "severity":{ "hidden":false, "translate":"критичность" }, "domain":{ "hidden":false, "translate":"домен" }, "action":{ "hidden":true, "translate":"действие" }, "target":{ "hidden":true, "translate":"объект" }, "detail":{ "hidden":true, "translate":"описание" }, "user":{ "hidden":true, "translate":"пользователь" }, "result":{ "hidden":true, "translate":"результат" } } }, "Threat_Event":{ "sidebar":{ "active":true, "text":"SAVA ESET Обнаружение угроз", "to":"/visualization eset threatEvent" }, "style":"devices-events", "title":"SAVA ESET Обнаружение угроз", "events":{ "Неустранимая ошибка":"High", "Критическая ошибка":"High", "Ошибка":"High", "Предупреждение":"Middle", "Примечание":"Low", "Информация":"Low" }, "fields":{ "event_type":{ "hidden":false, "translate":"тип события" }, "ipv4":{ "hidden":false, "translate":"IPv4-адрес" }, "ipv6":{ "hidden":false, "translate":"IPv6-адрес" }, "source_uuid":{ "hidden":true, "translate":"идентификатор UUID" }, "occured":{ "hidden":false, "translate":"время события" }, "severity":{ "hidden":false, "translate":"критичность" }, "hostname":{ "hidden":false, "translate":"имя хоста" }, "threat_type":{ "hidden":true, "translate":"тип обнаружения" }, "threat_name":{ "hidden":true, "translate":"имя обнаружения" }, "threat_flags":{ "hidden":true, "translate":"флаги" }, "scanner_id":{ "hidden":true, "translate":"ID модуля сканирования" }, "scan_id":{ "hidden":true, "translate":"ID сканирования" }, "engine_version":{ "hidden":false, "translate":"версия модуля" }, "object_type":{ "hidden":false, "translate":"тип объекта" }, "object_uri":{ "hidden":false, "translate":"URI объекта" }, "action_taken":{ "hidden":true, "translate":"действие" }, "action_error":{ "hidden":false, "translate":"ошибка обработки" }, "threat_handled":{ "hidden":false, "translate":"объект обработан" }, "need_restart":{ "hidden":false, "translate":"необходимость перезагрузки" }, "username":{ "hidden":true, "translate":"имя учетной записи" }, "processname":{ "hidden":true, "translate":"имя процесса" }, "circumstances":{ "hidden":true, "translate":"описание причины события" }, "hash":{ "hidden":true, "translate":"SHA1-хеш потока данных" }, "firstseen":{ "hidden":true, "translate":"время обнаружения" }, } }, "FirewallAggregated_Event":{ "sidebar":{ "active":true, "text":"SAVA ESET Предупреждения Enterprise Inspector", "to":"/visualization eset firewallAggregatedEvent" }, "style":"devices-events", "title":"SAVA ESET Предупреждения Enterprise Inspector", "events":{ "Неустранимая ошибка":"High", "Критическая ошибка":"High", "Ошибка":"High", "Предупреждение":"Middle", "Примечание":"Low", "Информация":"Low" }, "fields":{ "event_type":{ "hidden":false, "translate":"тип события" }, "ipv4":{ "hidden":false, "translate":"IPv4-адрес" }, "ipv6":{ "hidden":false, "translate":"IPv6-адрес" }, "source_uuid":{ "hidden":true, "translate":"идентификатор UUID" }, "occured":{ "hidden":false, "translate":"время события" }, "severity":{ "hidden":false, "translate":"критичность" }, "hostname":{ "hidden":false, "translate":"имя хоста" }, "event":{ "hidden":true, "translate":"событие" }, "source_address":{ "hidden":true, "translate":"адрес источника" }, "source_address_type":{ "hidden":true, "translate":"тип адреса источника" }, "source_port":{ "hidden":true, "translate":"порт источника" }, "target_address":{ "hidden":true, "translate":"адрес цели" }, "target_address_type":{ "hidden":false, "translate":"тип адреса цели" }, "target_port":{ "hidden":false, "translate":"порт цели" }, "protocol":{ "hidden":false, "translate":"протокол" }, "account":{ "hidden":true, "translate":"имя учетной записи" }, "process_name":{ "hidden":false, "translate":"имя процесса" }, "rule_name":{ "hidden":false, "translate":"имя правила" }, "rule_id":{ "hidden":false, "translate":"ID правила" }, "inbound":{ "hidden":true, "translate":"входящее подключение" }, "threat_name":{ "hidden":true, "translate":"имя обнаружения" }, "aggregate_count":{ "hidden":true, "translate":"кол-во сообщений" } } }, "HIPSAggregated_Event":{ "sidebar":{ "active":true, "text":"SAVA ESET Система HIPS", "to":"/visualization eset HIPSAggregatedEvent" }, "style":"devices-events", "title":"SAVA ESET Система HIPS", "events":{ "Неустранимая ошибка":"High", "Критическая ошибка":"High", "Ошибка":"High", "Предупреждение":"Middle", "Примечание":"Low", "Информация":"Low" }, "fields":{ "event_type":{ "hidden":false, "translate":"тип события" }, "ipv4":{ "hidden":false, "translate":"IPv4-адрес" }, "ipv6":{ "hidden":false, "translate":"IPv6-адрес" }, "source_uuid":{ "hidden":true, "translate":"идентификатор UUID" }, "occured":{ "hidden":false, "translate":"время события" }, "severity":{ "hidden":false, "translate":"критичность" }, "hostname":{ "hidden":false, "translate":"имя хоста" }, "application":{ "hidden":true, "translate":"имя приложения" }, "operation":{ "hidden":true, "translate":"операция" }, "target":{ "hidden":true, "translate":"объект" }, "action":{ "hidden":true, "translate":"действие" }, "rule_name":{ "hidden":true, "translate":"имя правила" }, "rule_id":{ "hidden":false, "translate":"ID правила" }, "aggregate_count":{ "hidden":false, "translate":"кол-во сообщений" } } }, "EnterpriseInspectorAlert_Event":{ "sidebar":{ "active":true, "text":"SAVA ESET Предупреждения Enterprise Inspector", "to":"/visualization eset enterpriseInspectorAlertEvent" }, "style":"devices-events", "title":"SAVA ESET Предупреждения Enterprise Inspector", "events":{ "Неустранимая ошибка":"High", "Критическая ошибка":"High", "Ошибка":"High", "Предупреждение":"Middle", "Примечание":"Low", "Информация":"Low" }, "fields":{ "event_type":{ "hidden":false, "translate":"тип события" }, "ipv4":{ "hidden":false, "translate":"IPv4-адрес" }, "ipv6":{ "hidden":false, "translate":"IPv6-адрес" }, "source_uuid":{ "hidden":true, "translate":"идентификатор UUID" }, "occured":{ "hidden":false, "translate":"время события" }, "severity":{ "hidden":false, "translate":"критичность" }, "hostname":{ "hidden":false, "translate":"имя хоста" }, "processname":{ "hidden":true, "translate":"имя процесса" }, "username":{ "hidden":true, "translate":"владелец процесса" }, "rulename":{ "hidden":true, "translate":"имя правила" }, "count":{ "hidden":false, "translate":"число уведомлений" }, "hash":{ "hidden":false, "translate":"SHA1-хеш предупреждения" }, "eiconsolelink":{ "hidden":false, "translate":"ссылка на ESET EI" }, "eialarmid":{ "hidden":false, "translate":"ID ссылки" } } }, "BlockedFiles_Event":{ "sidebar":{ "active":true, "text":"SAVA ESET Заблокированные файлы", "to":"/visualization eset blockedFilesEvent" }, "style":"devices-events", "title":"SAVA ESET Заблокированные файлы", "events":{ "Неустранимая ошибка":"High", "Критическая ошибка":"High", "Ошибка":"High", "Предупреждение":"Middle", "Примечание":"Low", "Информация":"Low" }, "fields":{ "event_type":{ "hidden":false, "translate":"тип события" }, "ipv4":{ "hidden":false, "translate":"IPv4-адрес" }, "ipv6":{ "hidden":false, "translate":"IPv6-адрес" }, "source_uuid":{ "hidden":true, "translate":"идентификатор UUID" }, "occured":{ "hidden":false, "translate":"время события" }, "severity":{ "hidden":false, "translate":"критичность" }, "hostname":{ "hidden":false, "translate":"имя хоста" }, "processname":{ "hidden":true, "translate":"имя процесса" }, "username":{ "hidden":true, "translate":"владелец процесса" }, "resolved":{ "hidden":true, "translate":"результат" }, "hash":{ "hidden":false, "translate":"SHA1-хеш файла" }, "object_uri":{ "hidden":false, "translate":"URI объекта" }, "action":{ "hidden":false, "translate":"действие" }, "firstseen":{ "hidden":false, "translate":"время обнаружения" }, "cause":{ "hidden":false, "translate":"описание причины события" }, "description":{ "hidden":false, "translate":"описание файла" } } }, "FilteredWebsites_Event":{ "sidebar":{ "active":true, "text":"SAVA ESET Защита доступа в Интернет", "to":"/visualization eset filteredWebsitesEvent" }, "style":"devices-events", "title":"SAVA ESET Защита доступа в Интернет", "events":{ "Неустранимая ошибка":"High", "Критическая ошибка":"High", "Ошибка":"High", "Предупреждение":"Middle", "Примечание":"Low", "Информация":"Low" }, "fields":{ "event_type":{ "hidden":false, "translate":"тип события" }, "ipv4":{ "hidden":false, "translate":"IPv4-адрес" }, "ipv6":{ "hidden":false, "translate":"IPv6-адрес" }, "source_uuid":{ "hidden":true, "translate":"идентификатор UUID" }, "occured":{ "hidden":false, "translate":"время события" }, "severity":{ "hidden":false, "translate":"критичность" }, "hostname":{ "hidden":false, "translate":"имя хоста" }, "processname":{ "hidden":true, "translate":"имя процесса" }, "username":{ "hidden":true, "translate":"владелец процесса" }, "resolved":{ "hidden":true, "translate":"результат" }, "hash":{ "hidden":false, "translate":"SHA1-хеш файла" }, "event":{ "hidden":false, "translate":"тип события" }, "rule_id":{ "hidden":false, "translate":"ID правила" }, "action_taken":{ "hidden":false, "translate":"действие" }, "scanner_id":{ "hidden":false, "translate":"ID модуля сканирования" }, "object_uri":{ "hidden":false, "translate":"URI объекта" }, "target_address":{ "hidden":false, "translate":"адрес цели события" }, "target_address_type":{ "hidden":false, "translate":"тип адреса цели события" } } } }, "title":"SAVA «ESET»" }}'
+
+create table
+allDashboards / sava_core / sava_user
+json text
+
+insert db
+allDashboards / sava_core
+json
+'{ "eset": { "admin": "yes", "loaded":false, "settings": { "sidebar": { "active":true, "text":"SAVA «ESET»", "to":"/setting module eset" }, //### "Tabels":[ { "title":"Конечные точки", "tableName":"endpoints", "formFields":[ { "text":"Объект", "field":"obj", "name":"obj", "component":"select", "options":"objects", "numb":1 }, { "text":"Название", "field":"name", "name":"name", "component":"input", "type":"text" }, { "text":"Ip адрес", "field":"ip", "name":"ip", "component":"input", "type":"text" }, { "text":"Порт", "field":"port", "name":"port", "component":"input", "type":"text" }, { "text":"Логин", "field":"login", "name":"login", "component":"input", "type":"text" }, { "text":"Пароль", "field":"pass", "name":"pass", "component":"input", "type":"password" }, { "text":"Использовать внутреннее имя", "field":"usename", "name":"usename", "component":"input", "type":"checkbox" } ] }, { "title":"Объекты инфраструктуры", "tableName":"objects", "formFields":[ { "text":"Название объекта", "field":"name", "name":"name", "component":"input", "type":"text" } ] } ] //### }, "indexes": { "Audit_Event":{ "sidebar":{ "active":true, "text":"SAVA ESET Журнал внутреннего аудита", "to":"/visualization eset auditEvent" }, "style":"devices-events", "title":"SAVA ESET Журнал внутреннего аудита", "events":{ "Неустранимая ошибка":"High", "Критическая ошибка":"High", "Ошибка":"High", "Предупреждение":"Middle", "Примечание":"Low", "Информация":"Low" }, "fields":{ "event_type":{ "hidden":false, "translate":"тип события" }, "ipv4":{ "hidden":false, "translate":"IPv4-адрес" }, "ipv6":{ "hidden":false, "translate":"IPv6-адрес" }, "source_uuid":{ "hidden":true, "translate":"идентификатор UUID" }, "occured":{ "hidden":false, "translate":"время события" }, "severity":{ "hidden":false, "translate":"критичность" }, "domain":{ "hidden":false, "translate":"домен" }, "action":{ "hidden":true, "translate":"действие" }, "target":{ "hidden":true, "translate":"объект" }, "detail":{ "hidden":true, "translate":"описание" }, "user":{ "hidden":true, "translate":"пользователь" }, "result":{ "hidden":true, "translate":"результат" } } }, "Threat_Event":{ "sidebar":{ "active":true, "text":"SAVA ESET Обнаружение угроз", "to":"/visualization eset threatEvent" }, "style":"devices-events", "title":"SAVA ESET Обнаружение угроз", "events":{ "Неустранимая ошибка":"High", "Критическая ошибка":"High", "Ошибка":"High", "Предупреждение":"Middle", "Примечание":"Low", "Информация":"Low" }, "fields":{ "event_type":{ "hidden":false, "translate":"тип события" }, "ipv4":{ "hidden":false, "translate":"IPv4-адрес" }, "ipv6":{ "hidden":false, "translate":"IPv6-адрес" }, "source_uuid":{ "hidden":true, "translate":"идентификатор UUID" }, "occured":{ "hidden":false, "translate":"время события" }, "severity":{ "hidden":false, "translate":"критичность" }, "hostname":{ "hidden":false, "translate":"имя хоста" }, "threat_type":{ "hidden":true, "translate":"тип обнаружения" }, "threat_name":{ "hidden":true, "translate":"имя обнаружения" }, "threat_flags":{ "hidden":true, "translate":"флаги" }, "scanner_id":{ "hidden":true, "translate":"ID модуля сканирования" }, "scan_id":{ "hidden":true, "translate":"ID сканирования" }, "engine_version":{ "hidden":false, "translate":"версия модуля" }, "object_type":{ "hidden":false, "translate":"тип объекта" }, "object_uri":{ "hidden":false, "translate":"URI объекта" }, "action_taken":{ "hidden":true, "translate":"действие" }, "action_error":{ "hidden":false, "translate":"ошибка обработки" }, "threat_handled":{ "hidden":false, "translate":"объект обработан" }, "need_restart":{ "hidden":false, "translate":"необходимость перезагрузки" }, "username":{ "hidden":true, "translate":"имя учетной записи" }, "processname":{ "hidden":true, "translate":"имя процесса" }, "circumstances":{ "hidden":true, "translate":"описание причины события" }, "hash":{ "hidden":true, "translate":"SHA1-хеш потока данных" }, "firstseen":{ "hidden":true, "translate":"время обнаружения" }, } }, "FirewallAggregated_Event":{ "sidebar":{ "active":true, "text":"SAVA ESET Предупреждения Enterprise Inspector", "to":"/visualization eset firewallAggregatedEvent" }, "style":"devices-events", "title":"SAVA ESET Предупреждения Enterprise Inspector", "events":{ "Неустранимая ошибка":"High", "Критическая ошибка":"High", "Ошибка":"High", "Предупреждение":"Middle", "Примечание":"Low", "Информация":"Low" }, "fields":{ "event_type":{ "hidden":false, "translate":"тип события" }, "ipv4":{ "hidden":false, "translate":"IPv4-адрес" }, "ipv6":{ "hidden":false, "translate":"IPv6-адрес" }, "source_uuid":{ "hidden":true, "translate":"идентификатор UUID" }, "occured":{ "hidden":false, "translate":"время события" }, "severity":{ "hidden":false, "translate":"критичность" }, "hostname":{ "hidden":false, "translate":"имя хоста" }, "event":{ "hidden":true, "translate":"событие" }, "source_address":{ "hidden":true, "translate":"адрес источника" }, "source_address_type":{ "hidden":true, "translate":"тип адреса источника" }, "source_port":{ "hidden":true, "translate":"порт источника" }, "target_address":{ "hidden":true, "translate":"адрес цели" }, "target_address_type":{ "hidden":false, "translate":"тип адреса цели" }, "target_port":{ "hidden":false, "translate":"порт цели" }, "protocol":{ "hidden":false, "translate":"протокол" }, "account":{ "hidden":true, "translate":"имя учетной записи" }, "process_name":{ "hidden":false, "translate":"имя процесса" }, "rule_name":{ "hidden":false, "translate":"имя правила" }, "rule_id":{ "hidden":false, "translate":"ID правила" }, "inbound":{ "hidden":true, "translate":"входящее подключение" }, "threat_name":{ "hidden":true, "translate":"имя обнаружения" }, "aggregate_count":{ "hidden":true, "translate":"кол-во сообщений" } } }, "HIPSAggregated_Event":{ "sidebar":{ "active":true, "text":"SAVA ESET Система HIPS", "to":"/visualization eset HIPSAggregatedEvent" }, "style":"devices-events", "title":"SAVA ESET Система HIPS", "events":{ "Неустранимая ошибка":"High", "Критическая ошибка":"High", "Ошибка":"High", "Предупреждение":"Middle", "Примечание":"Low", "Информация":"Low" }, "fields":{ "event_type":{ "hidden":false, "translate":"тип события" }, "ipv4":{ "hidden":false, "translate":"IPv4-адрес" }, "ipv6":{ "hidden":false, "translate":"IPv6-адрес" }, "source_uuid":{ "hidden":true, "translate":"идентификатор UUID" }, "occured":{ "hidden":false, "translate":"время события" }, "severity":{ "hidden":false, "translate":"критичность" }, "hostname":{ "hidden":false, "translate":"имя хоста" }, "application":{ "hidden":true, "translate":"имя приложения" }, "operation":{ "hidden":true, "translate":"операция" }, "target":{ "hidden":true, "translate":"объект" }, "action":{ "hidden":true, "translate":"действие" }, "rule_name":{ "hidden":true, "translate":"имя правила" }, "rule_id":{ "hidden":false, "translate":"ID правила" }, "aggregate_count":{ "hidden":false, "translate":"кол-во сообщений" } } }, "EnterpriseInspectorAlert_Event":{ "sidebar":{ "active":true, "text":"SAVA ESET Предупреждения Enterprise Inspector", "to":"/visualization eset enterpriseInspectorAlertEvent" }, "style":"devices-events", "title":"SAVA ESET Предупреждения Enterprise Inspector", "events":{ "Неустранимая ошибка":"High", "Критическая ошибка":"High", "Ошибка":"High", "Предупреждение":"Middle", "Примечание":"Low", "Информация":"Low" }, "fields":{ "event_type":{ "hidden":false, "translate":"тип события" }, "ipv4":{ "hidden":false, "translate":"IPv4-адрес" }, "ipv6":{ "hidden":false, "translate":"IPv6-адрес" }, "source_uuid":{ "hidden":true, "translate":"идентификатор UUID" }, "occured":{ "hidden":false, "translate":"время события" }, "severity":{ "hidden":false, "translate":"критичность" }, "hostname":{ "hidden":false, "translate":"имя хоста" }, "processname":{ "hidden":true, "translate":"имя процесса" }, "username":{ "hidden":true, "translate":"владелец процесса" }, "rulename":{ "hidden":true, "translate":"имя правила" }, "count":{ "hidden":false, "translate":"число уведомлений" }, "hash":{ "hidden":false, "translate":"SHA1-хеш предупреждения" }, "eiconsolelink":{ "hidden":false, "translate":"ссылка на ESET EI" }, "eialarmid":{ "hidden":false, "translate":"ID ссылки" } } }, "BlockedFiles_Event":{ "sidebar":{ "active":true, "text":"SAVA ESET Заблокированные файлы", "to":"/visualization eset blockedFilesEvent" }, "style":"devices-events", "title":"SAVA ESET Заблокированные файлы", "events":{ "Неустранимая ошибка":"High", "Критическая ошибка":"High", "Ошибка":"High", "Предупреждение":"Middle", "Примечание":"Low", "Информация":"Low" }, "fields":{ "event_type":{ "hidden":false, "translate":"тип события" }, "ipv4":{ "hidden":false, "translate":"IPv4-адрес" }, "ipv6":{ "hidden":false, "translate":"IPv6-адрес" }, "source_uuid":{ "hidden":true, "translate":"идентификатор UUID" }, "occured":{ "hidden":false, "translate":"время события" }, "severity":{ "hidden":false, "translate":"критичность" }, "hostname":{ "hidden":false, "translate":"имя хоста" }, "processname":{ "hidden":true, "translate":"имя процесса" }, "username":{ "hidden":true, "translate":"владелец процесса" }, "resolved":{ "hidden":true, "translate":"результат" }, "hash":{ "hidden":false, "translate":"SHA1-хеш файла" }, "object_uri":{ "hidden":false, "translate":"URI объекта" }, "action":{ "hidden":false, "translate":"действие" }, "firstseen":{ "hidden":false, "translate":"время обнаружения" }, "cause":{ "hidden":false, "translate":"описание причины события" }, "description":{ "hidden":false, "translate":"описание файла" } } }, "FilteredWebsites_Event":{ "sidebar":{ "active":true, "text":"SAVA ESET Защита доступа в Интернет", "to":"/visualization eset filteredWebsitesEvent" }, "style":"devices-events", "title":"SAVA ESET Защита доступа в Интернет", "events":{ "Неустранимая ошибка":"High", "Критическая ошибка":"High", "Ошибка":"High", "Предупреждение":"Middle", "Примечание":"Low", "Информация":"Low" }, "fields":{ "event_type":{ "hidden":false, "translate":"тип события" }, "ipv4":{ "hidden":false, "translate":"IPv4-адрес" }, "ipv6":{ "hidden":false, "translate":"IPv6-адрес" }, "source_uuid":{ "hidden":true, "translate":"идентификатор UUID" }, "occured":{ "hidden":false, "translate":"время события" }, "severity":{ "hidden":false, "translate":"критичность" }, "hostname":{ "hidden":false, "translate":"имя хоста" }, "processname":{ "hidden":true, "translate":"имя процесса" }, "username":{ "hidden":true, "translate":"владелец процесса" }, "resolved":{ "hidden":true, "translate":"результат" }, "hash":{ "hidden":false, "translate":"SHA1-хеш файла" }, "event":{ "hidden":false, "translate":"тип события" }, "rule_id":{ "hidden":false, "translate":"ID правила" }, "action_taken":{ "hidden":false, "translate":"действие" }, "scanner_id":{ "hidden":false, "translate":"ID модуля сканирования" }, "object_uri":{ "hidden":false, "translate":"URI объекта" }, "target_address":{ "hidden":false, "translate":"адрес цели события" }, "target_address_type":{ "hidden":false, "translate":"тип адреса цели события" } } } }, "title":"SAVA «ESET»" }}'
+
+
+create db
+eset / sava_user
+
+create table
+filters / eset / sava_user
+indexName varchar (64) NOT NULL,
+json text
+
+insert db
+filters / eset
+indexName, json
+'Audit_Event', ''
+
+insert db
+filters / eset
+indexName, json
+'Threat_Event', ''
+
+insert db
+filters / eset
+indexName, json
+'FirewallAggregated_Event', ''
+
+insert db
+filters / eset
+indexName, json
+'HIPSAggregated_Event', ''
+
+insert db
+filters / eset
+indexName, json
+'EnterpriseInspectorAlert_Event', ''
+
+insert db
+filters / eset
+indexName, json
+'BlockedFiles_Event', ''
+
+insert db
+filters / eset
+indexName, json
+'FilteredWebsites_Event', ''
+
+create table
+LastIndexLook / eset / sava_user
+indexName varchar (32) NOT NULL,
+login varchar (32) NOT NULL,
+lastTime text,
+json text
+
+insert db
+LastIndexLook / eset
+indexName, login,lastTime, json
+'Audit_Event', 'core','{"fromNum":1,"fromLetter":"months"}','{ "Неустранимая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},
+"Критическая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Предупреждение":{"style":"Middle","lastTime":"2019/01/29 00:00:00"},"Примечание":{"style":"Low","lastTime":"2019/01/29 00:00:00"},"Информация":{"style":"Low","lastTime":"2019/01/29 00:00:00"} }'
+
+insert db
+LastIndexLook / eset
+indexName, login,lastTime, json
+'Audit_Event', 'admin1','{"fromNum":1,"fromLetter":"months"}','{ "Неустранимая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},
+"Критическая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Предупреждение":{"style":"Middle","lastTime":"2019/01/29 00:00:00"},"Примечание":{"style":"Low","lastTime":"2019/01/29 00:00:00"},"Информация":{"style":"Low","lastTime":"2019/01/29 00:00:00"} }'
+
+insert db
+LastIndexLook / eset
+indexName, login,lastTime, json
+'Threat_Event', 'core','{"fromNum":1,"fromLetter":"months"}','{ "Неустранимая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},
+"Критическая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Предупреждение":{"style":"Middle","lastTime":"2019/01/29 00:00:00"},"Примечание":{"style":"Low","lastTime":"2019/01/29 00:00:00"},"Информация":{"style":"Low","lastTime":"2019/01/29 00:00:00"} }'
+
+insert db
+LastIndexLook / eset
+indexName, login,lastTime, json
+'Threat_Event', 'admin1','{"fromNum":1,"fromLetter":"months"}','{ "Неустранимая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},
+"Критическая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Предупреждение":{"style":"Middle","lastTime":"2019/01/29 00:00:00"},"Примечание":{"style":"Low","lastTime":"2019/01/29 00:00:00"},"Информация":{"style":"Low","lastTime":"2019/01/29 00:00:00"} }'
+
+insert db
+LastIndexLook / eset
+indexName, login,lastTime, json
+'FirewallAggregated_Event', 'core','{"fromNum":1,"fromLetter":"months"}','{ "Неустранимая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},
+"Критическая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Предупреждение":{"style":"Middle","lastTime":"2019/01/29 00:00:00"},"Примечание":{"style":"Low","lastTime":"2019/01/29 00:00:00"},"Информация":{"style":"Low","lastTime":"2019/01/29 00:00:00"} }'
+
+insert db
+LastIndexLook / eset
+indexName, login,lastTime, json
+'FirewallAggregated_Event', 'admin1','{"fromNum":1,"fromLetter":"months"}','{ "Неустранимая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},
+"Критическая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Предупреждение":{"style":"Middle","lastTime":"2019/01/29 00:00:00"},"Примечание":{"style":"Low","lastTime":"2019/01/29 00:00:00"},"Информация":{"style":"Low","lastTime":"2019/01/29 00:00:00"} }'
+
+insert db
+LastIndexLook / eset
+indexName, login,lastTime, json
+'HIPSAggregated_Event', 'core','{"fromNum":1,"fromLetter":"months"}','{ "Неустранимая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},
+"Критическая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Предупреждение":{"style":"Middle","lastTime":"2019/01/29 00:00:00"},"Примечание":{"style":"Low","lastTime":"2019/01/29 00:00:00"},"Информация":{"style":"Low","lastTime":"2019/01/29 00:00:00"} }'
+
+insert db
+LastIndexLook / eset
+indexName, login,lastTime, json
+'HIPSAggregated_Event', 'admin1','{"fromNum":1,"fromLetter":"months"}','{ "Неустранимая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},
+"Критическая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Предупреждение":{"style":"Middle","lastTime":"2019/01/29 00:00:00"},"Примечание":{"style":"Low","lastTime":"2019/01/29 00:00:00"},"Информация":{"style":"Low","lastTime":"2019/01/29 00:00:00"} }'
+
+insert db
+LastIndexLook / eset
+indexName, login,lastTime, json
+'EnterpriseInspectorAlert_Event', 'core','{"fromNum":1,"fromLetter":"months"}','{ "Неустранимая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},
+"Критическая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Предупреждение":{"style":"Middle","lastTime":"2019/01/29 00:00:00"},"Примечание":{"style":"Low","lastTime":"2019/01/29 00:00:00"},"Информация":{"style":"Low","lastTime":"2019/01/29 00:00:00"} }'
+
+insert db
+LastIndexLook / eset
+indexName, login,lastTime, json
+'EnterpriseInspectorAlert_Event', 'admin1','{"fromNum":1,"fromLetter":"months"}','{ "Неустранимая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},
+"Критическая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Предупреждение":{"style":"Middle","lastTime":"2019/01/29 00:00:00"},"Примечание":{"style":"Low","lastTime":"2019/01/29 00:00:00"},"Информация":{"style":"Low","lastTime":"2019/01/29 00:00:00"} }'
+
+insert db
+LastIndexLook / eset
+indexName, login,lastTime, json
+'BlockedFiles_Event', 'core','{"fromNum":1,"fromLetter":"months"}','{ "Неустранимая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},
+"Критическая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Предупреждение":{"style":"Middle","lastTime":"2019/01/29 00:00:00"},"Примечание":{"style":"Low","lastTime":"2019/01/29 00:00:00"},"Информация":{"style":"Low","lastTime":"2019/01/29 00:00:00"} }'
+
+insert db
+LastIndexLook / eset
+indexName, login,lastTime, json
+'BlockedFiles_Event', 'admin1','{"fromNum":1,"fromLetter":"months"}','{ "Неустранимая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},
+"Критическая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Предупреждение":{"style":"Middle","lastTime":"2019/01/29 00:00:00"},"Примечание":{"style":"Low","lastTime":"2019/01/29 00:00:00"},"Информация":{"style":"Low","lastTime":"2019/01/29 00:00:00"} }'
+
+
+insert db
+LastIndexLook / eset
+indexName, login,lastTime, json
+'FilteredWebsites_Event', 'core','{"fromNum":1,"fromLetter":"months"}','{ "Неустранимая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},
+"Критическая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Предупреждение":{"style":"Middle","lastTime":"2019/01/29 00:00:00"},"Примечание":{"style":"Low","lastTime":"2019/01/29 00:00:00"},"Информация":{"style":"Low","lastTime":"2019/01/29 00:00:00"} }'
+
+insert db
+LastIndexLook / eset
+indexName, login,lastTime, json
+'FilteredWebsites_Event', 'admin1','{"fromNum":1,"fromLetter":"months"}','{ "Неустранимая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},
+"Критическая ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Ошибка":{"style":"High","lastTime":"2019/01/29 00:00:00"},"Предупреждение":{"style":"Middle","lastTime":"2019/01/29 00:00:00"},"Примечание":{"style":"Low","lastTime":"2019/01/29 00:00:00"},"Информация":{"style":"Low","lastTime":"2019/01/29 00:00:00"} }'
+
+
+create table
+emailNotificationEvents / sava_core / sava_user
+id int,
+name varchar (40) NOT NULL,
+moduleName varchar (40) NOT NULL,
+indexName varchar (40) NOT NULL,
+login varchar (40) NOT NULL,
+filter text
+
+create table
+emailAddressees / sava_core / sava_user
+id int,
+name varchar (40) NOT NULL,
+login varchar (40) NOT NULL,
+theme varchar (40) NOT NULL,
+events text
+
+
+
+create table
+dashboards / eset / sava_user
+id int NOT NULL,
+name varchar (64),
+type varchar (32) NOT NULL,
+master varchar (32) NOT NULL,
+json text,
+indexName varchar (32) NOT NULL
+
+
+insert db
+dashboards / eset
+id, name, type, master ,indexName,json
+7, 'Круговая диаграмма', 'Circle_Diagram', 'admin1', 'Audit_Event', '{ "field":"severity","style":{"width":435,"minWidth":435}, "indexName":"Audit_Event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+
+insert db
+dashboards / eset
+id, name, type, master ,indexName,json
+7, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'Audit_Event', '{ "field":"severity", "style":{"width":435,"minWidth":435},"indexName":"Audit_Event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+insert db
+dashboards / eset
+id, name, type, master ,indexName,json
+8, 'Круговая диаграмма', 'Circle_Diagram', 'admin1', 'Threat_Event', '{ "field":"severity","style":{"width":435,"minWidth":435}, "indexName":"Threat_Event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+
+insert db
+dashboards / eset
+id, name, type, master ,indexName,json
+8, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'Threat_Event', '{ "field":"severity", "style":{"width":435,"minWidth":435},"indexName":"Threat_Event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+insert db
+dashboards / eset
+id, name, type, master ,indexName,json
+9, 'Круговая диаграмма', 'Circle_Diagram', 'admin1', 'FirewallAggregated_Event', '{ "field":"severity","style":{"width":435,"minWidth":435}, "indexName":"FirewallAggregated_Event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+
+insert db
+dashboards / eset
+id, name, type, master ,indexName,json
+9, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'FirewallAggregated_Event', '{ "field":"severity", "style":{"width":435,"minWidth":435},"indexName":"FirewallAggregated_Event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+insert db
+dashboards / eset
+id, name, type, master ,indexName,json
+10, 'Круговая диаграмма', 'Circle_Diagram', 'admin1', 'HIPSAggregated_Event', '{ "field":"severity","style":{"width":435,"minWidth":435}, "indexName":"HIPSAggregated_Event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+
+insert db
+dashboards / eset
+id, name, type, master ,indexName,json
+10, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'HIPSAggregated_Event', '{ "field":"severity", "style":{"width":435,"minWidth":435},"indexName":"HIPSAggregated_Event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+
+insert db
+dashboards / eset
+id, name, type, master ,indexName,json
+11, 'Круговая диаграмма', 'Circle_Diagram', 'admin1', 'EnterpriseInspectorAlert_Event', '{ "field":"severity","style":{"width":435,"minWidth":435}, "indexName":"EnterpriseInspectorAlert_Event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+
+insert db
+dashboards / eset
+id, name, type, master ,indexName,json
+11, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'EnterpriseInspectorAlert_Event', '{ "field":"severity", "style":{"width":435,"minWidth":435},"indexName":"EnterpriseInspectorAlert_Event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+insert db
+dashboards / eset
+id, name, type, master ,indexName,json
+12, 'Круговая диаграмма', 'Circle_Diagram', 'admin1', 'BlockedFiles_Event', '{ "field":"severity","style":{"width":435,"minWidth":435}, "indexName":"BlockedFiles_Event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+
+insert db
+dashboards / eset
+id, name, type, master ,indexName,json
+12, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'BlockedFiles_Event', '{ "field":"severity", "style":{"width":435,"minWidth":435},"indexName":"BlockedFiles_Event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+insert db
+dashboards / eset
+id, name, type, master ,indexName,json
+13, 'Круговая диаграмма', 'Circle_Diagram', 'admin1', 'FilteredWebsites_Event', '{ "field":"severity","style":{"width":435,"minWidth":435}, "indexName":"FilteredWebsites_Event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+
+insert db
+dashboards / eset
+id, name, type, master ,indexName,json
+13, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'FilteredWebsites_Event', '{ "field":"severity", "style":{"width":435,"minWidth":435},"indexName":"FilteredWebsites_Event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+
+insert db
+dashboards / eset
+id, name, type, master, indexName, json
+0, 'SAVA ESET Журнал внутреннего аудита', 'Table', 'admin1','Audit_Event', '{"headerElements":[{"text":"Дата","type":"date","field":"time","colWidth":128},{"text":"","type":"text","field":"severity","colWidth":25},{"text":"Тип события","type":"text","field":"event_type","colWidth":92},{"text":"IPv4-адрес","type":"text","field":"ipv4","colWidth":678},],"footerElements":[{"text":"IPv6-адрес","type":"text","field":"ipv6","colWidth":114},{"text":"Идентификатор UUID","type":"text","field":"source_uuid","colWidth":114},{"text":"Домен","type":"text","field":"domain","colWidth":114},{"text":"Действие","type":"text","field":"action","colWidth":114},{"text":"Объект","type":"text","field":"target","colWidth":114},{"text":"Описание","type":"text","field":"detail","colWidth":114},{"text":"Пользователь","type":"text","field":"user","colWidth":114},{"text":"Результат","type":"text","field":"result","colWidth":114}],"style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25},"indexName":"Audit_Event","logs":[],"timeFilter":{"from":"2020/01/26 00:00:00","to":"2020/01/26 23:59:00"},"uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"},"paramFilter":{},"pagination":{"total":"","currentPage":1,"fromPage":1,"showedPages":5,"lastPage":"","showedLogs":100,"showedLogsList":[50,100,250,500]},"sortParam":{"type":"date","field":"time","direction":"asc"},"curLog":null}'
+
+
+insert db
+dashboards / eset
+id, name, type, master, indexName, json
+0, 'SAVA ESET Журнал внутреннего аудита', 'Table', 'core','Audit_Event', '{"headerElements":[{"text":"Дата","type":"date","field":"time","colWidth":128},{"text":"","type":"text","field":"severity","colWidth":25},{"text":"Тип события","type":"text","field":"event_type","colWidth":92},{"text":"IPv4-адрес","type":"text","field":"ipv4","colWidth":678},],"footerElements":[{"text":"IPv6-адрес","type":"text","field":"ipv6","colWidth":114},{"text":"Идентификатор UUID","type":"text","field":"source_uuid","colWidth":114},{"text":"Домен","type":"text","field":"domain","colWidth":114},{"text":"Действие","type":"text","field":"action","colWidth":114},{"text":"Объект","type":"text","field":"target","colWidth":114},{"text":"Описание","type":"text","field":"detail","colWidth":114},{"text":"Пользователь","type":"text","field":"user","colWidth":114},{"text":"Результат","type":"text","field":"result","colWidth":114}],"style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25},"indexName":"Audit_Event","logs":[],"timeFilter":{"from":"2020/01/26 00:00:00","to":"2020/01/26 23:59:00"},"uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"},"paramFilter":{},"pagination":{"total":"","currentPage":1,"fromPage":1,"showedPages":5,"lastPage":"","showedLogs":100,"showedLogsList":[50,100,250,500]},"sortParam":{"type":"date","field":"time","direction":"asc"},"curLog":null}'
+
+
+insert db
+dashboards / eset
+id, name, type, master, indexName, json
+1, 'SAVA ESET Обнаружение угроз', 'Table', 'admin1','Threat_Event', '{ "headerElements":[ {"text":"Дата","type":"date","field":"time","colWidth":128}, {"text":"","type":"text","field":"severity","colWidth":25}, {"text":"Тип события","type":"text","field":"event_type","colWidth":92}, {"text":"IPv4-адрес","type":"text","field":"ipv4","colWidth":678}, ], "footerElements":[ {"text":"IPv6-адрес","type":"text","field":"ipv6","colWidth":114}, {"text":"Идентификатор UUID","type":"text","field":"source_uuid","colWidth":114}, {"text":"Домен","type":"text","field":"domain","colWidth":114}, {"text":"Имя хоста","type":"text","field":"hostname","colWidth":114}, {"text":"Тип обнаружения","type":"text","field":"threat_type","colWidth":114}, {"text":"Имя обнаружения","type":"text","field":"threat_name","colWidth":114}, {"text":"Флаги","type":"text","field":"threat_flags","colWidth":114}, {"text":"ID модуля сканирования","type":"text","field":"scanner_id","colWidth":114}, {"text":"ID сканирования","type":"text","field":"scan_id","colWidth":114}, {"text":"Версия модуля","type":"text","field":"engine_version","colWidth":114}, {"text":"URI объекта","type":"text","field":"object_uri","colWidth":114}, {"text":"Действие","type":"text","field":"action_taken","colWidth":114}, {"text":"Ошибка обработки","type":"text","field":"action_error","colWidth":114}, {"text":"Объект обработан","type":"text","field":"threat_handled","colWidth":114}, {"text":"Необходимость перезагрузки","type":"text","field":"need_restart","colWidth":114}, {"text":"Тип объекта","type":"text","field":"username","colWidth":114}, {"text":"Имя процесса","type":"text","field":"processname","colWidth":114}, {"text":"Описание причины события","type":"text","field":"circumstances","colWidth":114}, {"text":"SHA1-хеш потока данных","type":"text","field":"hash","colWidth":114}, {"text":"Время обнаружения","type":"text","field":"firstseen","colWidth":114} ], "style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25}, "indexName":"Threat_Event", "logs":[], "timeFilter":{"from":"2020/01/26 00:00:00","to":"2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{}, "pagination":{ "total":"", "currentPage":1, "fromPage":1, "showedPages":5, "lastPage":"", "showedLogs":100, "showedLogsList":[50,100,250,500] }, "sortParam":{"type":"date","field":"time","direction":"asc"}, "curLog":null }'
+
+
+insert db
+dashboards / eset
+id, name, type, master, indexName, json
+1, 'SAVA ESET Обнаружение угроз', 'Table', 'core','Threat_Event', '{ "headerElements":[ {"text":"Дата","type":"date","field":"time","colWidth":128}, {"text":"","type":"text","field":"severity","colWidth":25}, {"text":"Тип события","type":"text","field":"event_type","colWidth":92}, {"text":"IPv4-адрес","type":"text","field":"ipv4","colWidth":678}, ], "footerElements":[ {"text":"IPv6-адрес","type":"text","field":"ipv6","colWidth":114}, {"text":"Идентификатор UUID","type":"text","field":"source_uuid","colWidth":114}, {"text":"Домен","type":"text","field":"domain","colWidth":114}, {"text":"Имя хоста","type":"text","field":"hostname","colWidth":114}, {"text":"Тип обнаружения","type":"text","field":"threat_type","colWidth":114}, {"text":"Имя обнаружения","type":"text","field":"threat_name","colWidth":114}, {"text":"Флаги","type":"text","field":"threat_flags","colWidth":114}, {"text":"ID модуля сканирования","type":"text","field":"scanner_id","colWidth":114}, {"text":"ID сканирования","type":"text","field":"scan_id","colWidth":114}, {"text":"Версия модуля","type":"text","field":"engine_version","colWidth":114}, {"text":"URI объекта","type":"text","field":"object_uri","colWidth":114}, {"text":"Действие","type":"text","field":"action_taken","colWidth":114}, {"text":"Ошибка обработки","type":"text","field":"action_error","colWidth":114}, {"text":"Объект обработан","type":"text","field":"threat_handled","colWidth":114}, {"text":"Необходимость перезагрузки","type":"text","field":"need_restart","colWidth":114}, {"text":"Тип объекта","type":"text","field":"username","colWidth":114}, {"text":"Имя процесса","type":"text","field":"processname","colWidth":114}, {"text":"Описание причины события","type":"text","field":"circumstances","colWidth":114}, {"text":"SHA1-хеш потока данных","type":"text","field":"hash","colWidth":114}, {"text":"Время обнаружения","type":"text","field":"firstseen","colWidth":114} ], "style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25}, "indexName":"Threat_Event", "logs":[], "timeFilter":{"from":"2020/01/26 00:00:00","to":"2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{}, "pagination":{ "total":"", "currentPage":1, "fromPage":1, "showedPages":5, "lastPage":"", "showedLogs":100, "showedLogsList":[50,100,250,500] }, "sortParam":{"type":"date","field":"time","direction":"asc"}, "curLog":null }'
+
+
+insert db
+dashboards / eset
+id, name, type, master, indexName, json
+3, 'SAVA ESET Предупреждения Enterprise Inspector', 'Table', 'admin1','FirewallAggregated_Event', '{"headerElements":[{"text":"Дата","type":"date","field":"time","colWidth":128},{"text":"","type":"text","field":"severity","colWidth":25},{"text":"Тип события","type":"text","field":"event_type","colWidth":92},{"text":"IPv4-адрес","type":"text","field":"ipv4","colWidth":678},],"footerElements":[{"text":"IPv6-адрес","type":"text","field":"ipv6","colWidth":114},{"text":"Идентификатор UUID","type":"text","field":"source_uuid","colWidth":114},{"text":"Имя хоста","type":"text","field":"hostname","colWidth":114},{"text":"Событие","type":"text","field":"event","colWidth":114},{"text":"Адрес источника","type":"text","field":"source_address","colWidth":114},{"text":"Тип адреса источника","type":"text","field":"source_address_type","colWidth":114},{"text":"Порт источника","type":"text","field":"source_port","colWidth":114},{"text":"Адрес цели","type":"text","field":"target_address","colWidth":114},{"text":"Тип адреса цели","type":"text","field":"target_address_type","colWidth":114},{"text":"Порт цели","type":"text","field":"target_port","colWidth":114},{"text":"Протокол","type":"text","field":"protocol","colWidth":114},{"text":"Имя учетной записи","type":"text","field":"account","colWidth":114},{"text":"Имя процесса","type":"text","field":"process_name","colWidth":114},{"text":"Имя правила","type":"text","field":"rule_name","colWidth":114},{"text":"ID правила","type":"text","field":"rule_id","colWidth":114},{"text":"Входящее подключение","type":"text","field":"inbound","colWidth":114},{"text":"Имя обнаружения","type":"text","field":"threat_name","colWidth":114},{"text":"Кол-во сообщений","type":"text","field":"aggregate_count","colWidth":114}],"style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25},"indexName":"FirewallAggregated_Event","logs":[],"timeFilter":{"from":"2020/01/26 00:00:00","to":"2020/01/26 23:59:00"},"uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"},"paramFilter":{},"pagination":{"total":"","currentPage":1,"fromPage":1,"showedPages":5,"lastPage":"","showedLogs":100,"showedLogsList":[50,100,250,500]},"sortParam":{"type":"date","field":"time","direction":"asc"},"curLog":null}'
+
+
+insert db
+dashboards / eset
+id, name, type, master, indexName, json
+3, 'SAVA ESET Предупреждения Enterprise Inspector', 'Table', 'core','FirewallAggregated_Event', '{"headerElements":[{"text":"Дата","type":"date","field":"time","colWidth":128},{"text":"","type":"text","field":"severity","colWidth":25},{"text":"Тип события","type":"text","field":"event_type","colWidth":92},{"text":"IPv4-адрес","type":"text","field":"ipv4","colWidth":678},],"footerElements":[{"text":"IPv6-адрес","type":"text","field":"ipv6","colWidth":114},{"text":"Идентификатор UUID","type":"text","field":"source_uuid","colWidth":114},{"text":"Имя хоста","type":"text","field":"hostname","colWidth":114},{"text":"Событие","type":"text","field":"event","colWidth":114},{"text":"Адрес источника","type":"text","field":"source_address","colWidth":114},{"text":"Тип адреса источника","type":"text","field":"source_address_type","colWidth":114},{"text":"Порт источника","type":"text","field":"source_port","colWidth":114},{"text":"Адрес цели","type":"text","field":"target_address","colWidth":114},{"text":"Тип адреса цели","type":"text","field":"target_address_type","colWidth":114},{"text":"Порт цели","type":"text","field":"target_port","colWidth":114},{"text":"Протокол","type":"text","field":"protocol","colWidth":114},{"text":"Имя учетной записи","type":"text","field":"account","colWidth":114},{"text":"Имя процесса","type":"text","field":"process_name","colWidth":114},{"text":"Имя правила","type":"text","field":"rule_name","colWidth":114},{"text":"ID правила","type":"text","field":"rule_id","colWidth":114},{"text":"Входящее подключение","type":"text","field":"inbound","colWidth":114},{"text":"Имя обнаружения","type":"text","field":"threat_name","colWidth":114},{"text":"Кол-во сообщений","type":"text","field":"aggregate_count","colWidth":114}],"style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25},"indexName":"FirewallAggregated_Event","logs":[],"timeFilter":{"from":"2020/01/26 00:00:00","to":"2020/01/26 23:59:00"},"uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"},"paramFilter":{},"pagination":{"total":"","currentPage":1,"fromPage":1,"showedPages":5,"lastPage":"","showedLogs":100,"showedLogsList":[50,100,250,500]},"sortParam":{"type":"date","field":"time","direction":"asc"},"curLog":null}'
+
+
+insert db
+dashboards / eset
+id, name, type, master, indexName, json
+4, 'SAVA ESET Система HIPS', 'Table', 'admin1','HIPSAggregated_Event', '{ "headerElements":[ {"text":"Дата","type":"date","field":"time","colWidth":128}, {"text":"","type":"text","field":"severity","colWidth":25}, {"text":"Тип события","type":"text","field":"event_type","colWidth":92}, {"text":"IPv4-адрес","type":"text","field":"ipv4","colWidth":678}, ], "footerElements":[ {"text":"IPv6-адрес","type":"text","field":"ipv6","colWidth":114}, {"text":"Идентификатор UUID","type":"text","field":"source_uuid","colWidth":114}, {"text":"Имя хоста","type":"text","field":"hostname","colWidth":114}, {"text":"Событие","type":"text","field":"event","colWidth":114}, {"text":"Имя приложения","type":"text","field":"application","colWidth":114}, {"text":"Операция","type":"text","field":"operation","colWidth":114}, {"text":"Объект","type":"text","field":"target","colWidth":114}, {"text":"Действие","type":"text","field":"action","colWidth":114}, {"text":"Имя правила","type":"text","field":"rule_name","colWidth":114}, {"text":"ID правила","type":"text","field":"rule_id","colWidth":114}, {"text":"Кол-во сообщений","type":"text","field":"aggregate_count","colWidth":114}, ], "style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25}, "indexName":"HIPSAggregated_Event", "logs":[], "timeFilter":{"from":"2020/01/26 00:00:00","to":"2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{}, "pagination":{ "total":"", "currentPage":1, "fromPage":1, "showedPages":5, "lastPage":"", "showedLogs":100, "showedLogsList":[50,100,250,500] }, "sortParam":{"type":"date","field":"time","direction":"asc"}, "curLog":null }'
+
+
+insert db
+dashboards / eset
+id, name, type, master, indexName, json
+4, 'SAVA ESET Система HIPS', 'Table', 'core','HIPSAggregated_Event', '{ "headerElements":[ {"text":"Дата","type":"date","field":"time","colWidth":128}, {"text":"","type":"text","field":"severity","colWidth":25}, {"text":"Тип события","type":"text","field":"event_type","colWidth":92}, {"text":"IPv4-адрес","type":"text","field":"ipv4","colWidth":678}, ], "footerElements":[ {"text":"IPv6-адрес","type":"text","field":"ipv6","colWidth":114}, {"text":"Идентификатор UUID","type":"text","field":"source_uuid","colWidth":114}, {"text":"Имя хоста","type":"text","field":"hostname","colWidth":114}, {"text":"Событие","type":"text","field":"event","colWidth":114}, {"text":"Имя приложения","type":"text","field":"application","colWidth":114}, {"text":"Операция","type":"text","field":"operation","colWidth":114}, {"text":"Объект","type":"text","field":"target","colWidth":114}, {"text":"Действие","type":"text","field":"action","colWidth":114}, {"text":"Имя правила","type":"text","field":"rule_name","colWidth":114}, {"text":"ID правила","type":"text","field":"rule_id","colWidth":114}, {"text":"Кол-во сообщений","type":"text","field":"aggregate_count","colWidth":114}, ], "style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25}, "indexName":"HIPSAggregated_Event", "logs":[], "timeFilter":{"from":"2020/01/26 00:00:00","to":"2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{}, "pagination":{ "total":"", "currentPage":1, "fromPage":1, "showedPages":5, "lastPage":"", "showedLogs":100, "showedLogsList":[50,100,250,500] }, "sortParam":{"type":"date","field":"time","direction":"asc"}, "curLog":null }'
+
+
+insert db
+dashboards / eset
+id, name, type, master, indexName, json
+2, 'SAVA ESET Предупреждения Enterprise Inspector', 'Table', 'admin1','EnterpriseInspectorAlert_Event', '{  "headerElements":[  {"text":"Дата","type":"date","field":"time","colWidth":128},  {"text":"","type":"text","field":"severity","colWidth":25},  {"text":"Тип события","type":"text","field":"event_type","colWidth":92}, {"text":"IPv4-адрес","type":"text","field":"ipv4","colWidth":678},  ],  "footerElements":[  {"text":"IPv6-адрес","type":"text","field":"ipv6","colWidth":114},  {"text":"Идентификатор UUID","type":"text","field":"source_uuid","colWidth":114},  {"text":"Имя хоста","type":"text","field":"hostname","colWidth":114}, {"text":"Имя процесса","type":"text","field":"processname","colWidth":114},  {"text":"Владелец процесса","type":"text","field":"username","colWidth":114},  {"text":"Имя правила","type":"text","field":"rulename","colWidth":114},  {"text":"Число уведомлений","type":"text","field":"count","colWidth":114}, {"text":"SHA1-хеш предупреждения","type":"text","field":"hash","colWidth":114}, {"text":"Ссылка на ESET EI","type":"text","field":"eiconsolelink","colWidth":114},  {"text":"ID ссылки","type":"text","field":"eialarmid","colWidth":114},  ],  "style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25},  "indexName":"EnterpriseInspectorAlert_Event",  "logs":[],  "timeFilter":{"from":"2020/01/26 00:00:00","to":"2020/01/26 23:59:00"},  "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"},  "paramFilter":{},  "pagination":{  "total":"",  "currentPage":1,  "fromPage":1,  "showedPages":5,  "lastPage":"",  "showedLogs":100,  "showedLogsList":[50,100,250,500]  },  "sortParam":{"type":"date","field":"time","direction":"asc"},  "curLog":null }'
+
+
+insert db
+dashboards / eset
+id, name, type, master, indexName, json
+2, 'SAVA ESET Предупреждения Enterprise Inspector', 'Table', 'core','EnterpriseInspectorAlert_Event', '{  "headerElements":[  {"text":"Дата","type":"date","field":"time","colWidth":128},  {"text":"","type":"text","field":"severity","colWidth":25},  {"text":"Тип события","type":"text","field":"event_type","colWidth":92}, {"text":"IPv4-адрес","type":"text","field":"ipv4","colWidth":678},  ],  "footerElements":[  {"text":"IPv6-адрес","type":"text","field":"ipv6","colWidth":114},  {"text":"Идентификатор UUID","type":"text","field":"source_uuid","colWidth":114},  {"text":"Имя хоста","type":"text","field":"hostname","colWidth":114}, {"text":"Имя процесса","type":"text","field":"processname","colWidth":114},  {"text":"Владелец процесса","type":"text","field":"username","colWidth":114},  {"text":"Имя правила","type":"text","field":"rulename","colWidth":114},  {"text":"Число уведомлений","type":"text","field":"count","colWidth":114}, {"text":"SHA1-хеш предупреждения","type":"text","field":"hash","colWidth":114}, {"text":"Ссылка на ESET EI","type":"text","field":"eiconsolelink","colWidth":114},  {"text":"ID ссылки","type":"text","field":"eialarmid","colWidth":114},  ],  "style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25},  "indexName":"EnterpriseInspectorAlert_Event",  "logs":[],  "timeFilter":{"from":"2020/01/26 00:00:00","to":"2020/01/26 23:59:00"},  "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"},  "paramFilter":{},  "pagination":{  "total":"",  "currentPage":1,  "fromPage":1,  "showedPages":5,  "lastPage":"",  "showedLogs":100,  "showedLogsList":[50,100,250,500]  },  "sortParam":{"type":"date","field":"time","direction":"asc"},  "curLog":null }'
+
+
+
+insert db
+dashboards / eset
+id, name, type, master, indexName, json
+5, 'SAVA ESET Заблокированные файлы', 'Table', 'admin1','BlockedFiles_Event', '{ "headerElements":[ {"text":"Дата","type":"date","field":"time","colWidth":128}, {"text":"","type":"text","field":"severity","colWidth":25}, {"text":"Тип события","type":"text","field":"event_type","colWidth":92}, {"text":"IPv4-адрес","type":"text","field":"ipv4","colWidth":678}, ], "footerElements":[ {"text":"IPv6-адрес","type":"text","field":"ipv6","colWidth":114}, {"text":"Идентификатор UUID","type":"text","field":"source_uuid","colWidth":114}, {"text":"Имя хоста","type":"text","field":"hostname","colWidth":114}, {"text":"Имя процесса","type":"text","field":"processname","colWidth":114}, {"text":"Владелец процесса","type":"text","field":"username","colWidth":114}, {"text":"Результат","type":"text","field":"resolved","colWidth":114}, {"text":"SHA1-хеш предупреждения","type":"text","field":"hash","colWidth":114}, {"text":"URI объекта","type":"text","field":"object_uri","colWidth":114}, {"text":"Действие","type":"text","field":"action","colWidth":114}, {"text":"Время обнаружения","type":"text","field":"firstseen","colWidth":114}, {"text":"Описание причины события","type":"text","field":"cause","colWidth":114}, {"text":"Описание файла","type":"text","field":"description","colWidth":114}, ], "style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25}, "indexName":"BlockedFiles_Event", "logs":[], "timeFilter":{"from":"2020/01/26 00:00:00","to":"2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{}, "pagination":{ "total":"", "currentPage":1, "fromPage":1, "showedPages":5, "lastPage":"", "showedLogs":100, "showedLogsList":[50,100,250,500] }, "sortParam":{"type":"date","field":"time","direction":"asc"}, "curLog":null }'
+
+
+insert db
+dashboards / eset
+id, name, type, master, indexName, json
+5, 'SAVA ESET Заблокированные файлы', 'Table', 'core','BlockedFiles_Event', '{ "headerElements":[ {"text":"Дата","type":"date","field":"time","colWidth":128}, {"text":"","type":"text","field":"severity","colWidth":25}, {"text":"Тип события","type":"text","field":"event_type","colWidth":92}, {"text":"IPv4-адрес","type":"text","field":"ipv4","colWidth":678}, ], "footerElements":[ {"text":"IPv6-адрес","type":"text","field":"ipv6","colWidth":114}, {"text":"Идентификатор UUID","type":"text","field":"source_uuid","colWidth":114}, {"text":"Имя хоста","type":"text","field":"hostname","colWidth":114}, {"text":"Имя процесса","type":"text","field":"processname","colWidth":114}, {"text":"Владелец процесса","type":"text","field":"username","colWidth":114}, {"text":"Результат","type":"text","field":"resolved","colWidth":114}, {"text":"SHA1-хеш предупреждения","type":"text","field":"hash","colWidth":114}, {"text":"URI объекта","type":"text","field":"object_uri","colWidth":114}, {"text":"Действие","type":"text","field":"action","colWidth":114}, {"text":"Время обнаружения","type":"text","field":"firstseen","colWidth":114}, {"text":"Описание причины события","type":"text","field":"cause","colWidth":114}, {"text":"Описание файла","type":"text","field":"description","colWidth":114}, ], "style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25}, "indexName":"BlockedFiles_Event", "logs":[], "timeFilter":{"from":"2020/01/26 00:00:00","to":"2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{}, "pagination":{ "total":"", "currentPage":1, "fromPage":1, "showedPages":5, "lastPage":"", "showedLogs":100, "showedLogsList":[50,100,250,500] }, "sortParam":{"type":"date","field":"time","direction":"asc"}, "curLog":null }'
+
+
+insert db
+dashboards / eset
+id, name, type, master, indexName, json
+6, 'SAVA ESET Защита доступа в Интернет', 'Table', 'admin1','FilteredWebsites_Event', '{ "headerElements":[ {"text":"Дата","type":"date","field":"time","colWidth":128}, {"text":"","type":"text","field":"severity","colWidth":25}, {"text":"Тип события","type":"text","field":"event_type","colWidth":92}, {"text":"IPv4-адрес","type":"text","field":"ipv4","colWidth":678}, ], "footerElements":[ {"text":"IPv6-адрес","type":"text","field":"ipv6","colWidth":114}, {"text":"Идентификатор UUID","type":"text","field":"source_uuid","colWidth":114}, {"text":"Имя хоста","type":"text","field":"hostname","colWidth":114}, {"text":"Имя процесса","type":"text","field":"processname","colWidth":114}, {"text":"Владелец процесса","type":"text","field":"username","colWidth":114}, {"text":"Результат","type":"text","field":"resolved","colWidth":114}, {"text":"SHA1-хеш предупреждения","type":"text","field":"hash","colWidth":114}, {"text":"ID правила","type":"text","field":"rule_id","colWidth":114}, {"text":"Действие","type":"text","field":"action_taken","colWidth":114}, {"text":"ID модуля сканирования","type":"text","field":"scanner_id","colWidth":114}, {"text":"URI объекта","type":"text","field":"object_uri","colWidth":114}, {"text":"Адрес цели события","type":"text","field":"target_address","colWidth":114}, {"text":"Тип адреса цели события","type":"text","field":"target_address_type","colWidth":114} ], "style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25}, "indexName":"FilteredWebsites_Event", "logs":[], "timeFilter":{"from":"2020/01/26 00:00:00","to":"2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{}, "pagination":{ "total":"", "currentPage":1, "fromPage":1, "showedPages":5, "lastPage":"", "showedLogs":100, "showedLogsList":[50,100,250,500] }, "sortParam":{"type":"date","field":"time","direction":"asc"}, "curLog":null }'
+
+
+insert db
+dashboards / eset
+id, name, type, master, indexName, json
+6, 'SAVA ESET Защита доступа в Интернет', 'Table', 'core','FilteredWebsites_Event', '{ "headerElements":[ {"text":"Дата","type":"date","field":"time","colWidth":128}, {"text":"","type":"text","field":"severity","colWidth":25}, {"text":"Тип события","type":"text","field":"event_type","colWidth":92}, {"text":"IPv4-адрес","type":"text","field":"ipv4","colWidth":678}, ], "footerElements":[ {"text":"IPv6-адрес","type":"text","field":"ipv6","colWidth":114}, {"text":"Идентификатор UUID","type":"text","field":"source_uuid","colWidth":114}, {"text":"Имя хоста","type":"text","field":"hostname","colWidth":114}, {"text":"Имя процесса","type":"text","field":"processname","colWidth":114}, {"text":"Владелец процесса","type":"text","field":"username","colWidth":114}, {"text":"Результат","type":"text","field":"resolved","colWidth":114}, {"text":"SHA1-хеш предупреждения","type":"text","field":"hash","colWidth":114}, {"text":"ID правила","type":"text","field":"rule_id","colWidth":114}, {"text":"Действие","type":"text","field":"action_taken","colWidth":114}, {"text":"ID модуля сканирования","type":"text","field":"scanner_id","colWidth":114}, {"text":"URI объекта","type":"text","field":"object_uri","colWidth":114}, {"text":"Адрес цели события","type":"text","field":"target_address","colWidth":114}, {"text":"Тип адреса цели события","type":"text","field":"target_address_type","colWidth":114} ], "style":{"height":350,"minHeight":277, "footerHeight":100 ,"minFooterHeight":25}, "indexName":"FilteredWebsites_Event", "logs":[], "timeFilter":{"from":"2020/01/26 00:00:00","to":"2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{}, "pagination":{ "total":"", "currentPage":1, "fromPage":1, "showedPages":5, "lastPage":"", "showedLogs":100, "showedLogsList":[50,100,250,500] }, "sortParam":{"type":"date","field":"time","direction":"asc"}, "curLog":null }'
+
+
+
+create table
+smtpSettings / sava_core / sava_user
+name varchar (40) NOT NULL,
+port varchar (40) NOT NULL,
+adress varchar (40) NOT NULL,
+useAuth boolean,
+login varchar (40) NOT NULL,
+username varchar (40) NOT NULL,
+pass varchar (40) NOT NULL
+
+insert db
+smtpSettings / sava_core
+name ,port ,adress ,useAuth ,login, username ,pass
+'SMTPserver.damain.com', '25','wsee@domain.com',  't', 'wsee@domain.com', 'admin1', '123' 
+
+
+
+
+create table
+dashboards / sava_core / sava_user
+id int NOT NULL,
+name varchar (64),
+type varchar (32) NOT NULL,
+master varchar (32) NOT NULL,
+json text,
+indexName varchar (32) NOT NULL
+
+
+insert db
+dashboards / eset
+id, name, type, master ,indexName,json
+0, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'Audit_Event', '{ "field":"severity", "style":{"width":435,"minWidth":435},"indexName":"Audit_Event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+
+insert db
+dashboards / eset
+id, name, type, master ,indexName,json
+1, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'Threat_Event', '{ "field":"severity", "style":{"width":435,"minWidth":435},"indexName":"Threat_Event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+insert db
+dashboards / eset
+id, name, type, master ,indexName,json
+2, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'FirewallAggregated_Event', '{ "field":"severity", "style":{"width":435,"minWidth":435},"indexName":"FirewallAggregated_Event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+insert db
+dashboards / eset
+id, name, type, master ,indexName,json
+3, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'HIPSAggregated_Event', '{ "field":"severity", "style":{"width":435,"minWidth":435},"indexName":"HIPSAggregated_Event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+insert db
+dashboards / eset
+id, name, type, master ,indexName,json
+4, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'EnterpriseInspectorAlert_Event', '{ "field":"severity", "style":{"width":435,"minWidth":435},"indexName":"EnterpriseInspectorAlert_Event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+insert db
+dashboards / eset
+id, name, type, master ,indexName,json
+5, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'BlockedFiles_Event', '{ "field":"severity", "style":{"width":435,"minWidth":435},"indexName":"BlockedFiles_Event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
+
+insert db
+dashboards / eset
+id, name, type, master ,indexName,json
+6, 'Круговая диаграмма', 'Circle_Diagram', 'core', 'FilteredWebsites_Event', '{ "field":"severity", "style":{"width":435,"minWidth":435},"indexName":"FilteredWebsites_Event", "logs":[], "timeFilter":{"from": "2020/01/26 00:00:00", "to": "2020/01/26 23:59:00"}, "uploads":{"uploads":true,"timeKind":1,"timeNum":11000,"to":"now/d"}, "paramFilter":{} }'
