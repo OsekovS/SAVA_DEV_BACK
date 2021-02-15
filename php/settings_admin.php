@@ -1,6 +1,5 @@
 <?php
 include 'db.php';
-include 'socket.php';
 $_POST = json_decode(file_get_contents('php://input'), true);
 
 
@@ -195,7 +194,6 @@ if(isset($_POST['notific'])){
 		// id, login, name , events
 		$str="INSERT INTO emailNotificationEvents (id, login, name, moduleName, indexName, filter) VALUES ($id,'".$login."','".$name."', '".$moduleName."', '".$indexName."', '".$filter."')";
 		$arraydb['str'] = $str;
-		$arraydb['python'] = socketConnect($_POST['notific']['socketJSON']) ;
 		$result = pg_query($conn, $str);
 		
 	}
@@ -209,7 +207,6 @@ if(isset($_POST['notific'])){
 		$str="INSERT INTO emailAddressees (id, login, name, events, theme) VALUES ($id,'".$login."','".$name."', '".$events."', '".$theme."')";
 		$arraydb['str'] = $str;
 		$result = pg_query($conn, $str);
-		$arraydb['python'] = socketConnect($_POST['notific']['socketJSON']) ;
 		$arraydb['result'] = pg_fetch_assoc($result);
 	}
 	
@@ -278,24 +275,6 @@ if(isset($_POST['notific'])){
 		$useAuth = $smtp['useAuth']?'t':'f';
 		$arraydb['result'] = pg_fetch_assoc(pg_query($conn,"UPDATE smtpSettings SET (name ,port ,adress ,useAuth ,login, username ,pass) = ('".$smtp['name']."','".$smtp['port']."','".$smtp['adress']."','".$useAuth."','".$smtp['login']."','".$smtp['username']."','".$smtp['pass']."')"));
 		// pg_query($conn, );
-	}
-	if($_POST['notific']['purpose']=='testSMTP') {
-		$arraydb['post'] = $_POST['notific']['data'];
-		$msg = $_POST['notific']['data'];
-		// $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-		// socket_connect($socket, 'localhost', 9310);
-
-		// $len = strlen($msg);
-		// //envio informacion a socket
-		// $sendMsg = socket_send($socket, $msg, $len, MSG_DONTROUTE);
-		// //now you can read from...
-		// $python = trim(socket_read($socket, 100));
-		// socket_close($socket);
-		/////////////////////////////////////////////////////////////////////////////////
-
-		// echo $python;
-		$arraydb['python'] = socketConnect($msg) ;
-		//echo json_encode($arraydb);
 	}
 	// "UPDATE smtpSettings SET (name ,port ,adress ,useAuth ,login, username ,pass) = ('SMTPserver.damain.com','27','wsee@domain.com','1','wsee@domain.com','admin1','123')
 	pg_close($conn);

@@ -19,7 +19,7 @@ header("Pragma: public");
 header("Expires: 0");
 header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 header("Cache-Control: private",false); // нужен для Explorer
-header("Content-Disposition: attachment; filename=\"".basename($filename)."\";" );
+header("Content-Disposition: attachment; filename=\"".($filename)."\";" );
 header("Content-Transfer-Encoding: binary");
 // нужно сделать подсчет размера файла его пути
 header("Content-Length: ".filesize($filename));

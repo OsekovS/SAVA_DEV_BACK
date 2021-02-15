@@ -43,6 +43,7 @@ if(isset($_POST['upload'])){
 		$modulesForUser=json_decode($data['modules']);
 	
 		$arraydb['mo$ul$$es'] = $modules;
+		// бежим по всем модулям собирая фильтры
 		foreach($modules as $moduleKey => $module) {
 			
 			$connection = connectBD($moduleKey);
@@ -71,8 +72,28 @@ if(isset($_POST['upload'])){
 		
 		$arraydb['modules'] = $modulesForUser;
 		$arraydb['filters'] =$filters;
-		// $arraydb['DISK1'] = exec("curl -XGET 'http://127.0.0.1:9200/_cat/indices?v'"); 
-		$arraydb['DISK1'] = exec("curl -XGET 'http://127.0.0.1:9200/_cat/indices?v'| awk '{print \"%10s\", $3}'");	//  awk {print "%10s %10s %10s %10s\n", &3, $7, $8, $9}");	// 
+		$arraydb['modulesLen'] = count($modulesForUser);
+		
+		// делаем запрос на занимаемое место 
+		exec("curl -XGET 'http://127.0.0.1:9200/_cat/indices?v' | awk '{print $3, $7, $8, $9}'",$diskInfo);
+		$diskInfoResult = array();
+		for ($i=1; $i < count($diskInfo); $i++) { 
+			$exploded = explode(" ",$diskInfo[$i]);
+			$diskInfoResult[$i - 1] = array(
+				'Название таблицы elasticsearch' =>  $exploded[0],
+				'Количество документов' =>  $exploded[1],
+				'Документов удалено' =>  $exploded[2],
+				'Занимаемый размер' =>  $exploded[3],
+			);
+		}
+		$arraydb['diskInfo'] = $diskInfoResult;
+		exec("df -h | awk 'NR==4 {print $4}'", $arraydb['dataAvail']);
+
+		//$arraydb['diskInfo'] = passthru("curl -XGET 'http://127.0.0.1:9200/_cat/indices?v' | awk '{print $3, $7, $8, $9, \"|\"}' | xarg");
+		// $arraydb['DISK1'] = exec("curl -XGET 'http://127.0.0.1:9200/_cat/indices?v'");// | awk 'NR==2 { for( i=1; i<=2; i++ ) {   {print $3,$7,$8,$9} } } '");		
+		// $arraydb['DISK1'] = exec("curl -XGET 'http://127.0.0.1:9200/_cat/indices?v' | awk 'NR==2 {print $3,$7,$8,$9}'");
+		// $arraydb['DISK1'] = exec("curl -XGET 'http://127.0.0.1:9200/_cat/indices?v' | awk 'NR==2 {print $3} {print $7} {print $8} {print $9}'");
+		
 		$DateTime = new DateTime();
 		$arraydb['post'] = $DateTime->sub(date_interval_create_from_date_string('10 months'))->format('Y/m/d H:m:s');// DateInterval::createFromDateString('1 day + 12 hours');
 	}
@@ -144,8 +165,9 @@ if(isset($_POST['auth'])){
 					while($fieldsListIsFull){
 
 						$querry  = getQuerryString($_POST);
-
-						$result = json_decode(getLogs($indexKey,$querry,true))->aggregations->termsfast->buckets;
+						//service
+						$arraydb['aggsStrings'][$moduleKey][$indexKey][$fieldKey] = $querry;
+						$result = json_decode(getLogs($indexKey,$querry,'long'))->aggregations->termsfast->buckets;
 						// $arraydb['querries'][$moduleKey][$indexKey][$fieldKey] = json_decode(getLogs($indexKey,$querry,true))->aggregations->termsfast->buckets;//->aggregations->timeAggs->buckets[0]->termsfast->buckets;
 	
 						$array = array();
@@ -284,7 +306,20 @@ if(isset($_POST['auth'])){
 
 	fclose($handle);
 	//=======================================================NTP_SETTINGS=======================================================
-
+		// делаем запрос на занимаемое место 
+		exec("curl -XGET 'http://127.0.0.1:9200/_cat/indices?v' | awk '{print $3, $7, $8, $9}'",$diskInfo);
+		$diskInfoResult = array();
+		for ($i=1; $i < count($diskInfo); $i++) { 
+			$exploded = explode(" ",$diskInfo[$i]);
+			$diskInfoResult[$i - 1] = array(
+				'Название таблицы elasticsearch' =>  $exploded[0],
+				'Количество документов' =>  $exploded[1],
+				'Документов удалено' =>  $exploded[2],
+				'Занимаемый размер' =>  $exploded[3],
+			);
+		}
+		$arraydb['diskInfo'] = $diskInfoResult;
+		exec("df -h | awk 'NR==4 {print $4}'", $arraydb['dataAvail']);
 	//=======================================================SMTP_SETTINGS=======================================================
 
 	//=======================================================SMTP_SETTINGS=======================================================
@@ -306,10 +341,6 @@ if(isset($_POST['delField']))
 	$id = $_POST['delField']['id']['id'];
 	$modules = $_POST['delField']['modules'];
 	$login = pg_fetch_assoc(pg_query($conn,"SELECT login from users WHERE id='$id'"))['login'];//$_POST['delField']['login'];
-	
-	
-
-	// foreach($userModules->{$modules[$i]}->indexes as $indexKey => $index) {
 
 	foreach($modules as $moduleKey => $index) {
 		$connection = connectBD($moduleKey);
@@ -322,7 +353,10 @@ if(isset($_POST['delField']))
 	// 	}
 		pg_close($connection);
 	}
-	// $arraydb['!']="DELETE FROM users WHERE id = '".(str)$id."'";
+	// теперь удаляем дашборды из sava_core
+	$connection = connectBD('sava_core');
+	pg_query($conn, "DELETE FROM dashboards WHERE master = '$login'");
+
 	$result = pg_query($conn, "DELETE FROM users WHERE id = '$id'");
 	$arraydb['post']=$_POST;
 	if ($result) {
@@ -400,6 +434,7 @@ if(isset($_POST['addField']))
 
 
 if(isset($_POST['changePass'])){
+	$arraydb['post'] = $_POST; 
 	$pass_query= pg_query($conn, "SELECT pass FROM users WHERE id=".$_POST['changePass']['id']."");
 	$data =  pg_fetch_assoc($pass_query);
 	

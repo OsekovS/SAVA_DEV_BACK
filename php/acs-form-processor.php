@@ -8,12 +8,60 @@
 // $client = ClientBuilder::create()->build();
 include 'db.php';
 include 'elastic.php';
-// раскомментируй, чтобы видеть ошибки
-// ini_set('error_reporting', E_ALL);
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
+// system("curl -H \"Content-Type: application/json\" -XPOST 'http://localhost:9200/skud*/main/_delete_by_query' -d '{ \"query\" : { \"term\" : { \"ip_cam\" : \"192.168.3.110\" } } }'");
+//подключение к БД
+
+$conn = connectBD('acs_castle_ep2');
 $_POST = json_decode(file_get_contents('php://input'), true);
 // var_dump($_POST);
+if($_POST['need']=='logsClear'){
+    // $POST['paramsFilter']
+    // $POST['timeFilter']['from']
+    $conn = connectBD('sava_core');
+    $pass_query= pg_query($conn, "SELECT pass FROM users WHERE login='".$_POST['login']."'");
+	$data =  pg_fetch_assoc($pass_query);
+    if($data['pass'] == hash('sha1' , $_POST['password'])){
+        $arraydb['_POST'] = $_POST;
+        $querry  = getQuerryString($_POST);
+        $QuerryResult = json_decode(getLogs($_POST['indexName'],$querry,'delete'));
+        $arraydb['amount'] = $QuerryResult->deleted;
+        $arraydb['QuerryString'] = $querry;
+        $arraydb['result'] = $QuerryResult != null? 'success':'error';
+    }else{
+        $arraydb['result'] = 'passwErr';
+    }
+    
+
+    pg_close($conn);
+}
+if($_POST['need'] == 'shiftDash'){
+    $arraydb['post'] = $_POST;
+    $connect = connectBD($_POST['dbName']);//shiftedId
+    // $data=pg_query($connect, "UPDATE dashboards SET (id) = ('".$_POST['siblingId']."') WHERE (shiftedId) = (".$_POST['siblingId'].")");
+    // $data=pg_query($connect, "UPDATE dashboards SET (id) = ('".$_POST['shiftedId']."') WHERE (siblingId) = (".$_POST['siblingId'].")");
+    $arraydb['obj1'] = pg_fetch_assoc(pg_query($connect,"SELECT * FROM dashboards WHERE (master, id) = ('".$_POST['login']."', ".$_POST['siblingId'].")"));
+    $arraydb['obj2'] = pg_fetch_assoc(pg_query($connect,"SELECT * FROM dashboards WHERE (master, id) = ('".$_POST['login']."', ".$_POST['shiftedId'].")"));
+    pg_query($connect,"delete from dashboards where (master, id) = ('".$_POST['login']."', ".$_POST['siblingId'].")");
+    pg_query($connect,"delete from dashboards where (master, id) = ('".$_POST['login']."', ".$_POST['shiftedId'].")");
+    //$a = "INSERT INTO dashboards ".$arraydb['obj1']['id']."";
+    pg_query($connect,"INSERT INTO dashboards (id, indexname, json, master, name, type) VALUES (".$arraydb['obj2']['id'].", '".$arraydb['obj1']['indexname']."', '".$arraydb['obj1']['json']."', '".$arraydb['obj1']['master']."', '".$arraydb['obj1']['name']."', '".$arraydb['obj1']['type']."')");
+    pg_query($connect,"INSERT INTO dashboards (id, indexname, json, master, name, type) VALUES (".$arraydb['obj1']['id'].", '".$arraydb['obj2']['indexname']."', '".$arraydb['obj2']['json']."', '".$arraydb['obj2']['master']."', '".$arraydb['obj2']['name']."', '".$arraydb['obj2']['type']."')");
+
+    // $arraydb['obj1'] = $obj1;
+    // $arraydb['obj2'] = $obj2;
+    pg_close($connect);
+
+/*
+id: "8"
+indexname: "acs_castle_ep2_event"
+json: "{"field":"route","style":{"width":435,"minWidth":435},"indexName":"acs_castle_ep2_event","logs":[],"timeFilter":{"from":"2019\/07\/28 00:00:00","to":"2020\/07\/28 11:13:00"},"uploads":{"uploads":false,"timeKind":1,"timeNum":11000,"to":"now\/d"},"paramFilter":[]}"
+master: "admin2"
+name: "8"
+type: "Circle_Diagram"
+*/
+
+
+}
 if($_POST['need']=='changeDashName'){
     $arraydb['!!'] = $_POST;
     $connect = connectBD($_POST['dbName']);
@@ -31,7 +79,6 @@ if($_POST['need']=='TableList'){
 }
 if($_POST['need']=='dashboards'){
     $conn = connectBD($_POST['dbName']);
-    $arraydb['post']=$_POST;
     $arraydb['!']=$_POST['dbName'];
     $arraydb['login']=$_POST['login'];
     $personalDash = getDB($conn,"SELECT * FROM dashboards WHERE master = '".$_POST['login']."'");
@@ -54,7 +101,7 @@ if($_POST['need']=='dashboards'){
 }
 if($_POST['need']=='addDashboard'){
     $arraydb['post'] = $_POST;
-
+    
     $conn = connectBD($_POST['dbName']);
     //не забудь улучшить функцию 
     
@@ -66,7 +113,7 @@ if($_POST['need']=='addDashboard'){
     $jsonString = json_encode($json);
     $arraydb['1'] = $jsonString;
 
-    pg_query($conn,"INSERT INTO dashboards (id, name, type, master, json, indexname) VALUES ($id, '-', 'Circle_Diagram', '".$_POST['login']."', '".$jsonString."', '".$_POST['indexName']."')");
+    pg_query($conn,"INSERT INTO dashboards (id, name, type, master, json, indexname) VALUES ($id, '".$_POST['name']."', 'Circle_Diagram', '".$_POST['login']."', '".$jsonString."', '".$_POST['indexName']."')");
 
     //INSERT INTO dashboards (id, name, type, master, json, indexname) VALUES (1,'1','1','1','1','1')
     // $arraydb['!']=$_POST['dbName'];
@@ -77,7 +124,7 @@ if($_POST['need']=='addDashboard'){
     // $personalDash = getDB($conn,"SELECT * FROM dashboards WHERE master = '".$_POST['login']."'");
     $newDash = array(
         'id'=>$id,
-        'name'=>'Введите название',
+        'name'=>$_POST['name'],
         'type'=>'Circle_Diagram',
         'master'=>$_POST['login'],
         'json'=>$json,
@@ -88,14 +135,17 @@ if($_POST['need']=='addDashboard'){
     // var_dump($dashStandart);
     // $standartDash = getDB($conn,"SELECT * FROM dashboards WHERE master = 'standart'");
     // $arraydb['dashboards'] = array_merge($standartDash, $personalDash);
+
     $arraydb['dashboard'] =  $newDash;
+    /*
     $arraydb['filters'] = getDB($conn,"SELECT * FROM filters");
+    */
 }
-if($_POST['need']=='changeLastTime'){
-    $connection = connectBD($_POST['dbName']);
-    $arraydb['result'] = pg_fetch_assoc(pg_query($connection, "UPDATE LastIndexLook SET lastTime='".$_POST['lastTime']."' WHERE (login,indexName) = ('".$_POST['login']."','".$_POST['indexName']."')"));
-    pg_close($connection);
-}
+// if($_POST['need']=='changeLastTime'){
+//     $connection = connectBD($_POST['dbName']);
+//     $arraydb['result'] = pg_fetch_assoc(pg_query($connection, "UPDATE LastIndexLook SET lastTime='".$_POST['lastTime']."' WHERE (login,indexName) = ('".$_POST['login']."','".$_POST['indexName']."')"));
+//     pg_close($connection);
+// }
 if($_POST['need']=='delDashboard'){
     $arraydb['post'] = $_POST;
     $conn = connectBD($_POST['dbName']);
@@ -150,9 +200,10 @@ if($_POST['need']=='modulesInfo'){
                 foreach ($fields as $key => $field) {
                     $_POST['timeFilter']['from'] = $field->lastTime;
                     $_POST['paramsFilter']=array("significance"=>array($key));
+                    
                     $querry  = getQuerryString($_POST);
-                    // $arraydb['service'][$moduleKey][$indexName][$key] = $querry;//смотрим что за запросные строки генерятся
-                    $total = json_decode(getLogs($indexName,$querry,true))->hits->total->value;
+                    // $arraydb['serv'][$moduleKey][$indexName][$key] = $querry;//смотрим по каким полям идет поиск
+                    $total = json_decode(getLogs($indexName,$querry,'long'))->hits->total->value;
                     $arraydb[$moduleKey][$indexName][$key] = array("style"=>$field->style , "lastTime"=>$field->lastTime, "key" => $key, "doc_count" => $total );
                 }
                 //
@@ -209,7 +260,7 @@ if($_POST['need']=='Circle_Diagram'){
     // $arraydb['res'] = json_decode(getLogs($_POST['indexName'],$querry,true));
     $labels = array();
     $counts = array();
-    $result = json_decode(getLogs($_POST['indexName'],$querry,true));
+    $result = json_decode(getLogs($_POST['indexName'],$querry,'long'));
     $arraydb['took'] = $result->took;
     $agrList = $result->aggregations->termsfast->buckets;
     
@@ -221,7 +272,29 @@ if($_POST['need']=='Circle_Diagram'){
     $arraydb['logs']['count'] = $counts; //gettype
     $arraydb['logs']['labels'] = $labels;
 }
-
+if($_POST['need']=='Bar_Diagram'){
+    $arraydb['post']=$_POST;
+    
+    $_POST['aggs']= 100;
+    // $_POST['aggsParam'] = $_POST['specialObject']['fieldName'];
+    // $_POST['paramsFilter'][$_POST['specialObject']['fieldName']] = $_POST['specialObject']['fieldList'];
+    $querry  = str_replace('\\','\\\\',getQuerryString($_POST));//replaceInStr(getQuerryString($_POST) ,"\\", "\\\\") ;//getQuerryString($_POST) 
+    $arraydb['!!!'] = $querry;
+    
+    $result = json_decode(getLogs($_POST['indexName'],$querry,'short'))
+        ->aggregations->my_buckets;
+    $buckets = $result->buckets;
+    $arraydb['after_key'] = $result->after_key;
+    $logs = array();
+    foreach($buckets as $agrListKey => $agrListElem) {
+         array_push($logs, array(
+            'doc_count'  =>  $agrListElem->doc_count,
+            'date'  => $agrListElem->key->date
+         ));
+        //  array_push($counts, $agrListElem->doc_count);
+    }
+    $arraydb['logs'] = $logs; 
+}
 // if($_POST['need']=='Circle_Diagram'){
 //     $arraydb['post']=$_POST;
 //     $customArray =  array(
@@ -415,18 +488,22 @@ if($_POST['need']=='logs'){
     //запрос для получения логов
     $querry = getQuerryString($_POST);
     $arraydb['querry'] = ($querry); 
-    $logs = getLogs($_POST['indexName'],$querry,false);
+    $logs = getLogs($_POST['indexName'],$querry,'short');
     $raw_logs = json_decode($logs);
     $arraydb['raw_logs'] = json_decode($logs);
     $logs_arr = $raw_logs->hits->hits;   
     $arraydb['logs'] = ($logs_arr);
+
+    // if($_POST['specialObject']['id']=='8'){
     $arraydb['search_after'] = $raw_logs->hits->hits[$_POST['specialObject']['logsCount']-1]->sort;
+    // }
+
     //запрос для получения количества логов
     $_POST['specialObject']['logsCount'] = 1;
     $_POST['specialObject']['curPage'] = 1;
     $querry = getQuerryString($_POST);
     $arraydb['count_querry'] = ($querry); 
-    $logs = getLogs($_POST['indexName'],$querry,true);
+    $logs = getLogs($_POST['indexName'],$querry,'long');
     $raw_logs = json_decode($logs);
     $arraydb['total'] = $raw_logs->hits->total->value;
 
@@ -447,12 +524,19 @@ if($_POST['need']=='logs_pretty'){
     // }
     $querry = getQuerryString($_POST);
     $arraydb['querry:)'] = ($querry); 
-    $logs = getLogs($_POST['indexName'],$querry,false);
+    $logs = getLogs($_POST['indexName'],$querry,'short');
     $raw_logs = json_decode($logs);
     $arraydb['raw_logs'] = json_decode($logs);
     $logs_arr = $raw_logs->hits->hits;   
+    // $arraydb['logs'] = ($logs_arr);
+    
+    // if($_POST['specialObject']['id']=='8'){
     $arraydb['logs'] = array_slice($logs_arr, (abs($curPage-$oldPage)-1)*$logsCount);
+    // $arraydb['cutted_logs'] = $curPage-$oldPage>0?array_slice($logs_arr, ($curPage-$oldPage-1)*$logsCount):array_slice($logs_arr, 0, $logsCount);
+    // $arraydb['all_logs'] = ($logs_arr);
+
     $hits =  $raw_logs->hits;
+    // $arraydb['search_after'] = array();
     $arraydb['search_after'] = array();
 
     $arraydb['search_after']['tail'] = $curPage-$oldPage>0?$hits->hits[($curPage-$oldPage-1)*$logsCount]->sort:$hits->hits[abs($curPage-$oldPage)*$logsCount-1]->sort;
@@ -483,36 +567,26 @@ if($_POST['need']=='logs_pretty'){
         }
     }
     $arraydb['search_after']['head'][0] = $new_head;
+
+
+        // $arraydb['search_after']['tail'] =  $hits->hits[0]->sort;
+        // $arraydb['search_after']['head'] =$hits->hits[$_POST['specialObject']['logsCount']-1]->sort;
+
+        // $_POST['specialObject']['id']=0;
+    // }
+
     //запрос для получения количества логов
     $_POST['specialObject']['logsCount'] = 1;
     $_POST['specialObject']['curPage'] = 1;
     // $_POST['specialObject']['count'] = true;
     $querry = getQuerryString($_POST);
     $arraydb['count_querry'] = ($querry);
-    $logs = getLogs($_POST['indexName'],$querry,true);
+    $logs = getLogs($_POST['indexName'],$querry,'long');
     $raw_logs = json_decode($logs);
     $arraydb['raw_logs_total'] = $logs;
     $arraydb['total'] = $raw_logs->hits->total->value;
 
 }
-
-// <IfModule mod_rewrite.c>
-
-//   RewriteEngine On
-//   RewriteBase /
-//   RewriteRule ^index\.html$ - [L]
-//   RewriteCond %{REQUEST_FILENAME} !-f
-//   RewriteCond %{REQUEST_FILENAME} !-d
-//   RewriteCond %{REQUEST_FILENAME} !-l
-//   RewriteRule . /index.html [L]
-	
-
-//   Redirect "https://192.168.3.35/email%20alert/" "https://192.168.3.35/"
-//   Redirect "https://192.168.3.35/setting%20common/" "https://192.168.3.35/"
-//   Redirect "https://192.168.3.35/setting%20lic/" "https://192.168.3.35/"
-//   Redirect "https://192.168.3.35/setting%20users/" "https://192.168.3.35/"
-// </IfModule>
-
 
 // if($_POST['need']=='last_log'){
 //     $arraydb['post']=$_POST;  

@@ -1,0 +1,7 @@
+cp -r ./lic ../lic
+cp -r ./lic ../html/
+cp -r ./sh ../sh
+cp -r ./sh ../html/
+cp -r ./php ../php
+cp -r ./php ../html/
+cp -r ./postgresql_console_install ../postgresql_console_install

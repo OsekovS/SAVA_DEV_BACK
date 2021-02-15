@@ -1,11 +1,5 @@
-
 <?php
 class Enc {
-	
-	// Процесс изменения лицензии:
-	// устанавливаемый срок лицензии лежит в $licenseTime
-	// чтобы обновить лицензию нужно загрузить в интерфейсе файл private.txt который лежит в папке R:\Технический департамент\ИБ\SAVA NEW\пара
-	// перед этим в машине нужно удалить старый файл лицензии license.lic в /var/www/html/lic и /var/www/html/LicenseGen  
  
  static public function get_keys() {
   
@@ -105,16 +99,14 @@ if (isset($_GET['time_gen'])){
 	
 	$ob = new Enc();
 	//Формирование дат
-	$date = date_create('15-05-2020 00:00:00'); //версия arinteg
-	//$date = date_create();  //версия нормального человека
-	
-	$licenseTime = 365;
+	$date = date_create(); 
+
 	$arraydb['from'] = date('d-m-Y H:i:s', date_timestamp_get($date));
 	$arraydb['to'] = date('d-m-Y H:i:s', date_timestamp_get($date)+$_GET['time']*86400);
 	$day_last = (date_timestamp_get($date) - date_timestamp_get($date)+$_GET['time']*86400)/86400;                    
 	$arraydb['day_last'] = $day_last;
 
-	$str = date_timestamp_get($date)."|".(date_timestamp_get($date)+$licenseTime*86400)."|"."ALL";
+	$str = date_timestamp_get($date)."|".(date_timestamp_get($date)+365*86400)."|"."ALL";
 	//echo "<h2>".$str."</h2>";
 	 
 	$cipher = $ob->my_enc($str);
